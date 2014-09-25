@@ -70,6 +70,8 @@ public class TinySouSearchActivity extends Activity {
             SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, Search,
                     R.layout.list_item, new String[] {"title", "sections", "url_sp"}, new int[] {R.id.title, R.id.sections, R.id.url_sp});
             lt1.setAdapter(adapter);
+            isSearching = 0;
+            swipeLayout.setRefreshing(false);
         }
     };
 
@@ -109,6 +111,8 @@ public class TinySouSearchActivity extends Activity {
                     startActivity(it);
                 }
             });
+            isSearching=0;
+            swipeLayout.setRefreshing(false);
         }
     };
 
@@ -129,9 +133,9 @@ public class TinySouSearchActivity extends Activity {
                 // TODO Auto-generated method stub
                 System.out.println("刷新开始!!!"+search_content);
 
-                if (swipeLayout.isRefreshing()!=true)
-                {
-                    Search("自定义样式", 0);
+                if (swipeLayout.isRefreshing()==true){
+                    System.out.println("刷新中!!!"+search_content);
+                    Search(search_content, 0);
                 }
                 System.out.println("刷新结束!!!");
             }
@@ -211,6 +215,7 @@ public class TinySouSearchActivity extends Activity {
     //-------------------------------------执行搜索操作函数-------------------------------------
 
     public void Search(String query, final int page){
+        isSearching =1;
         search_content = query;
         new Thread(new Runnable() {
             public void run() {
@@ -225,6 +230,7 @@ public class TinySouSearchActivity extends Activity {
     }
 
     public void autoComplete(final String query){
+        isSearching=1;
         new Thread(new Runnable() {
             public void run() {
                 System.out.println(engine_token);
