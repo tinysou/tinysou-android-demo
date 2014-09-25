@@ -37,7 +37,7 @@ import Help.TinySouHelp;
 
 public class TinySouSearchActivity extends Activity {
 
-    protected String engine_token = "0b732cc0ea3c11874190";
+    public String engine_token = "0b732cc0ea3c11874190";
     protected String search_content = "自定义样式";
     protected int Current_page = 0;//当前显示页数
     protected int Max_page = 0;//最大页数
@@ -46,7 +46,6 @@ public class TinySouSearchActivity extends Activity {
     private ListView lt1;
 
     //------------------------------------处理搜索结果函数--------------------------------------------
-    ////-------------------------------------ListView处理方式-------------------------------------
     //处理搜索
     private Handler handler1 = new Handler() {
         // 处理子线程给我们发送的消息。
@@ -204,6 +203,7 @@ public class TinySouSearchActivity extends Activity {
     public void autoComplete(final String query){
         new Thread(new Runnable() {
             public void run() {
+                System.out.println(engine_token);
                 TinySouClient client = new TinySouClient(engine_token);
                 String result = client.AutoSearch(query);
                 if("".equals(query)) {
