@@ -148,7 +148,8 @@ public class TinySouSearchActivity extends Activity {
             SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
             SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-            searchView.setIconifiedByDefault(true);
+            searchView.setIconifiedByDefault(false);//默认展开搜索框
+            searchView.requestFocus();//默认开启焦点，打开输入法
             //监听输入框字符串变化
             SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener()
             {
