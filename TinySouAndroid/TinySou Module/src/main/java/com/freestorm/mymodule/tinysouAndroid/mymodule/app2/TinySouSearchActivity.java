@@ -14,22 +14,15 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
-import Help.HtmlHelp;
 import Help.ListHelp;
 import Help.TinySouClient;
 import Help.TinySouHelp;
@@ -40,7 +33,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 public class TinySouSearchActivity extends Activity {
 
     public String engine_token = "0b732cc0ea3c11874190";
-    protected String search_content = "自定义样式";
+    protected String search_content = "";//默认为空
     protected int Current_page = 0;//当前显示页数
     protected int Max_page = 0;//最大页数
     protected List<String> UrlList = new ArrayList<String>();
@@ -51,7 +44,8 @@ public class TinySouSearchActivity extends Activity {
 
     //------------------------------------处理搜索结果函数--------------------------------------------
     //处理搜索
-    private Handler handler1 = new Handler() {
+    private Handler handler1 = new Handler()
+    {
         // 处理子线程给我们发送的消息。
         @Override
         public void handleMessage(android.os.Message msg) {
@@ -130,6 +124,9 @@ public class TinySouSearchActivity extends Activity {
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                if("".equals(search_content)) {
+                    swipeLayout.setRefreshing(false);
+                }
                 // TODO Auto-generated method stub
                 System.out.println("刷新开始!!!"+search_content);
 
@@ -266,8 +263,6 @@ public class TinySouSearchActivity extends Activity {
             Current_page++;
         }
     }
-
-
 
 }
 
