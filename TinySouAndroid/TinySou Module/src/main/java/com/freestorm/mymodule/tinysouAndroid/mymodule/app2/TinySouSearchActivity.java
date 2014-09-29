@@ -34,6 +34,8 @@ import Help.ListHelp;
 import Help.TinySouClient;
 import Help.TinySouHelp;
 
+import android.support.v4.widget.SwipeRefreshLayout;
+
 
 public class TinySouSearchActivity extends Activity {
 
@@ -42,8 +44,10 @@ public class TinySouSearchActivity extends Activity {
     protected int Current_page = 0;//当前显示页数
     protected int Max_page = 0;//最大页数
     protected List<String> UrlList = new ArrayList<String>();
+    protected int isSearching = 0;
 
     private ListView lt1;
+    private SwipeRefreshLayout swipeLayout;
 
     //------------------------------------处理搜索结果函数--------------------------------------------
     //处理搜索
@@ -66,6 +70,8 @@ public class TinySouSearchActivity extends Activity {
             SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, Search,
                     R.layout.list_item, new String[] {"title", "sections", "url_sp"}, new int[] {R.id.title, R.id.sections, R.id.url_sp});
             lt1.setAdapter(adapter);
+            isSearching = 0;
+            swipeLayout.setRefreshing(false);
         }
     };
 
@@ -105,6 +111,8 @@ public class TinySouSearchActivity extends Activity {
                     startActivity(it);
                 }
             });
+            isSearching=0;
+            swipeLayout.setRefreshing(false);
         }
     };
 
@@ -118,7 +126,25 @@ public class TinySouSearchActivity extends Activity {
         System.out.println("111111");
         handleIntent(getIntent());
         setContentView(R.layout.activity_tiny_sou_search);
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                // TODO Auto-generated method stub
+                System.out.println("刷新开始!!!"+search_content);
+
+                if (swipeLayout.isRefreshing()==true){
+                    System.out.println("刷新中!!!"+search_content);
+                    Search(search_content, 0);
+                }
+                System.out.println("刷新结束!!!");
+            }
+        });
+        swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light, android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
     }
+
 
     @Override
     protected void onNewIntent(Intent intent) {
@@ -156,6 +182,7 @@ public class TinySouSearchActivity extends Activity {
                 public boolean onQueryTextChange(String newText)
                 {
                     // this is your adapter that will be filtered
+                    search_content = newText;
                     autoComplete(newText);
                     return true;
                 }
@@ -188,6 +215,7 @@ public class TinySouSearchActivity extends Activity {
     //-------------------------------------执行搜索操作函数-------------------------------------
 
     public void Search(String query, final int page){
+        isSearching =1;
         search_content = query;
         new Thread(new Runnable() {
             public void run() {
@@ -202,6 +230,7 @@ public class TinySouSearchActivity extends Activity {
     }
 
     public void autoComplete(final String query){
+        isSearching=1;
         new Thread(new Runnable() {
             public void run() {
                 System.out.println(engine_token);
