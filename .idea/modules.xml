@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/20.0.0.iml" filepath="$PROJECT_DIR$/TinySouAndroid/app/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/20.0.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/20.0.0.iml" filepath="$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/20.0.0.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/app/src/androidTest/androidTest.iml" filepath="$PROJECT_DIR$/TinySouAndroid/app/src/androidTest/androidTest.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/TinySou Module/src/androidTest/androidTest1.iml" filepath="$PROJECT_DIR$/TinySouAndroid/TinySou Module/src/androidTest/androidTest1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/app/build/generated/source/buildConfig/buildConfig.iml" filepath="$PROJECT_DIR$/TinySouAndroid/app/build/generated/source/buildConfig/buildConfig.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/generated/source/buildConfig/buildConfig1.iml" filepath="$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/generated/source/buildConfig/buildConfig1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SwipeRefreshAndLoadLayout/app/build/generated/source/buildConfig/buildConfig2.iml" filepath="$PROJECT_DIR$/SwipeRefreshAndLoadLayout/app/build/generated/source/buildConfig/buildConfig2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/build/generated/source/buildConfig/buildConfig3.iml" filepath="$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/build/generated/source/buildConfig/buildConfig3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SwipeRefreshAndLoadLayout/app/build/intermediates/manifests/debug/debug.iml" filepath="$PROJECT_DIR$/SwipeRefreshAndLoadLayout/app/build/intermediates/manifests/debug/debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SwipeRefreshAndLoadLayout/app/build/intermediates/manifests/test/debug/debug.iml" filepath="$PROJECT_DIR$/SwipeRefreshAndLoadLayout/app/build/intermediates/manifests/test/debug/debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/app/build/intermediates/manifests/debug/debug.iml" filepath="$PROJECT_DIR$/TinySouAndroid/app/build/intermediates/manifests/debug/debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/app/build/intermediates/manifests/test/debug/debug.iml" filepath="$PROJECT_DIR$/TinySouAndroid/app/build/intermediates/manifests/test/debug/debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/build/intermediates/bundles/debug/debug.iml" filepath="$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/build/intermediates/bundles/debug/debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/build/intermediates/manifests/debug/debug.iml" filepath="$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/build/intermediates/manifests/debug/debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/build/intermediates/manifests/test/debug/debug.iml" filepath="$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/build/intermediates/manifests/test/debug/debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/intermediates/bundles/debug/debug.iml" filepath="$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/intermediates/bundles/debug/debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/intermediates/manifests/test/debug/debug.iml" filepath="$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/intermediates/manifests/test/debug/debug.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/src/main/main.iml" filepath="$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/src/main/main.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SwipeRefreshAndLoadLayout/app/src/main/main1.iml" filepath="$PROJECT_DIR$/SwipeRefreshAndLoadLayout/app/src/main/main1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/app/src/main/main2.iml" filepath="$PROJECT_DIR$/TinySouAndroid/app/src/main/main2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/TinySou Module/src/main/main3.iml" filepath="$PROJECT_DIR$/TinySouAndroid/TinySou Module/src/main/main3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/generated/source/r/r.iml" filepath="$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/generated/source/r/r.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/build/generated/source/r/r1.iml" filepath="$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/build/generated/source/r/r1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/app/build/generated/source/r/r2.iml" filepath="$PROJECT_DIR$/TinySouAndroid/app/build/generated/source/r/r2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SwipeRefreshAndLoadLayout/app/build/generated/source/r/r3.iml" filepath="$PROJECT_DIR$/SwipeRefreshAndLoadLayout/app/build/generated/source/r/r3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/intermediates/bundles/release/release.iml" filepath="$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/intermediates/bundles/release/release.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/build/generated/source/r/test/test.iml" filepath="$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/build/generated/source/r/test/test.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/build/generated/source/buildConfig/test/test1.iml" filepath="$PROJECT_DIR$/TinySouAndroid/swipeRefreshAndload/build/generated/source/buildConfig/test/test1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SwipeRefreshAndLoadLayout/app/build/generated/source/buildConfig/test/test2.iml" filepath="$PROJECT_DIR$/SwipeRefreshAndLoadLayout/app/build/generated/source/buildConfig/test/test2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/generated/source/r/test/test3.iml" filepath="$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/generated/source/r/test/test3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/app/build/generated/source/buildConfig/test/test4.iml" filepath="$PROJECT_DIR$/TinySouAndroid/app/build/generated/source/buildConfig/test/test4.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/generated/source/buildConfig/test/test5.iml" filepath="$PROJECT_DIR$/TinySouAndroid/TinySou Module/build/generated/source/buildConfig/test/test5.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TinySouAndroid/app/build/intermediates/exploded-aar/TinySouAndroid/TinySou Module/unspecified/unspecified.iml" filepath="$PROJECT_DIR$/TinySouAndroid/app/build/intermediates/exploded-aar/TinySouAndroid/TinySou Module/unspecified/unspecified.iml" />
+    </modules>
+  </component>
+</project>
+
