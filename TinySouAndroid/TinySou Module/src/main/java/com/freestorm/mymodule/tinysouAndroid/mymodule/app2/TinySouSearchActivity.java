@@ -13,6 +13,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AbsListView;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -49,7 +50,6 @@ public class TinySouSearchActivity extends Activity {
         // 处理子线程给我们发送的消息。
         @Override
         public void handleMessage(android.os.Message msg) {
-            lt1 = (ListView) findViewById(R.id.list1);
             String content = msg.obj.toString();
             //如果输入内容为空
             if("".equals(content)){
@@ -74,7 +74,7 @@ public class TinySouSearchActivity extends Activity {
         // 处理子线程给我们发送的消息。
         @Override
         public void handleMessage(android.os.Message msg) {
-            lt1 = (ListView) findViewById(R.id.list1);
+
             String content = msg.obj.toString();
             //如果输入内容为空
             if("".equals(content)){
@@ -140,6 +140,25 @@ public class TinySouSearchActivity extends Activity {
         swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light, android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+        lt1 = (ListView) findViewById(R.id.list1);
+        lt1.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                // 当不滚动时
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                    // 判断是否滚动到底部
+                    if (view.getLastVisiblePosition() == view.getCount() - 1) {
+                    //加载更多功能的代码
+                        System.out.println("loadmore");
+                    }
+                }
+            }
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+
+        });
     }
 
 
