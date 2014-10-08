@@ -14,8 +14,12 @@ public class ListHelp {
     protected List<Map<String, String>> Search = new ArrayList<Map<String, String>>();
     protected List<Map<String, String>> AutoCompleteList = new ArrayList<Map<String, String>>();
     protected List<String> UrlList = new ArrayList<String>();
+    protected int MaxPage = 0;
+    protected int CurrentPage = 0;
 
     public void ListHelp(){}
+
+    public void setCurrentPage(int current_page){this.CurrentPage = current_page;}
 
     public List<Map<String, String>> getSearch(){
         return this.Search;
@@ -27,13 +31,16 @@ public class ListHelp {
 
     public List<String> getUrlList() {return this.UrlList;}
 
+    public int getMaxPage(){return this.MaxPage;}
+
     public void setSearch(TinySouHelp tinySouHelp){
         int num = tinySouHelp.records.size();
         for (int i = 0; i < num; i++) {
             //<title, sections, url_sp>
             Map<String,String> item = new HashMap<String, String>();
+            int title_num = this.CurrentPage*10 + i +1;
             //--------------------------------------title处理
-            String title = tinySouHelp.records.get(i).document.title;
+            String title = title_num + " "+ tinySouHelp.records.get(i).document.title;
             item.put("title", title);
             //--------------------------------------sections处理
             String sections = "";
@@ -67,6 +74,14 @@ public class ListHelp {
             String url_sp = m5.replaceFirst("") + "..." + date;
             item.put("url_sp", url_sp);
             this.Search.add(item);
+            //获得总页数
+            int per_page = Integer.parseInt(tinySouHelp.info.per_page);
+            int total = Integer.parseInt(tinySouHelp.info.total);
+            int total_page = total/per_page;
+            if(total%per_page != 0){
+                total_page++;
+            }
+            this.MaxPage = total_page;
         }
     }
 
@@ -75,8 +90,9 @@ public class ListHelp {
         for (int i = 0; i < num; i++) {
             //<title, sections, url_sp>
             Map<String,String> item = new HashMap<String, String>();
+            int title_num = this.CurrentPage*10 + i +1;
             //--------------------------------------title处理
-            String title = tinySouHelp.records.get(i).document.title;
+            String title = title_num + " " + tinySouHelp.records.get(i).document.title;
             item.put("title", title);
             //--------------------------------------sections处理
             String sections = "";
@@ -110,6 +126,14 @@ public class ListHelp {
             String url_sp = m5.replaceFirst("") + "..." + date;
             item.put("url_sp", url_sp);
             this.AutoCompleteList.add(item);
+            //获得总页数
+            int per_page = Integer.parseInt(tinySouHelp.info.per_page);
+            int total = Integer.parseInt(tinySouHelp.info.total);
+            int total_page = total/per_page;
+            if(total%per_page != 0){
+                total_page++;
+            }
+            this.MaxPage = total_page;
         }
     }
 }
