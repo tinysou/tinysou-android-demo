@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -50,6 +49,10 @@ public class TinySouSearchActivity extends Activity {
     private ListView lt1;
     private SwipeRefreshLayout swipeLayout;
     private List<Map<String, String>> SearchDisplay = new ArrayList<Map<String, String>>();
+
+    private SearchThread searchThread = new SearchThread(0);
+    private AutoCompleteThread autoCompleteThread =  new AutoCompleteThread();
+
 
     //------------------------------------处理搜索结果函数--------------------------------------------
     //处理搜索
@@ -102,7 +105,8 @@ public class TinySouSearchActivity extends Activity {
                     startActivity(it);
                 }
             });
-
+            System.out.println("run? " + searchThread.isRun());
+            searchThread.setStopState();
             //adapter.notifyDataSetChanged();
         }
     };
@@ -148,6 +152,8 @@ public class TinySouSearchActivity extends Activity {
             });
             isSearching=0;
             swipeLayout.setRefreshing(false);
+            System.out.println("run? " + autoCompleteThread.isRun());
+            autoCompleteThread.setStopState();
         }
     };
 
@@ -211,12 +217,15 @@ public class TinySouSearchActivity extends Activity {
                         System.out.println("记录： "+"position "+position);
                         System.out.println("loadmore");
                         System.out.println("记录： "+"x "+scrolledX+" y "+scrolledY);
-                        if(Current_page+1 < Max_page) {
-                            Current_page++;
-                            Search(search_content, Current_page);
-                        }
-                        else{
-                            System.out.println("当前页  "+Current_page+"最大页 "+Max_page+" 没有更多了！");
+                        if(searchThread.isRun()){
+                            System.out.println("还在加载中，请稍等...");
+                        }else {
+                            if (Current_page + 1 < Max_page) {
+                                Current_page++;
+                                Search(search_content, Current_page);
+                            } else {
+                                System.out.println("当前页  " + Current_page + "最大页 " + Max_page + " 没有更多了！");
+                            }
                         }
                     }
                 }
@@ -301,35 +310,18 @@ public class TinySouSearchActivity extends Activity {
 
     //-------------------------------------执行搜索操作函数-------------------------------------
 
-    public void Search(String query, final int page){
+    public void Search(String query, int page){
         isSearching =1;
         search_content = query;
-        new Thread(new Runnable() {
-            public void run() {
-                TinySouClient client = new TinySouClient(TinySouSearchActivity.this.engine_token);
-                client.setPage(page);
-                String result = client.Search(search_content);
-                Message message = Message.obtain();
-                message.obj = result;
-                handler1.sendMessage(message);
-            }
-        }).start();
+        searchThread = new SearchThread(page);
+        searchThread.start();
     }
 
-    public void autoComplete(final String query){
+    public void autoComplete(String query){
         isSearching=1;
-        new Thread(new Runnable() {
-            public void run() {
-                TinySouClient client = new TinySouClient(TinySouSearchActivity.this.engine_token);
-                String result = client.AutoSearch(query);
-                if("".equals(query)) {
-                    System.out.println("sadasd" + query);
-                }
-                Message message = Message.obtain();
-                message.obj = result;
-                handler2.sendMessage(message);
-            }
-        }).start();
+        search_content = query;
+        autoCompleteThread =  new AutoCompleteThread();
+        autoCompleteThread.start();
     }
 
     public void LastPage(final View view){
@@ -353,5 +345,55 @@ public class TinySouSearchActivity extends Activity {
         }
     }
 
+    //搜索线程
+    class SearchThread extends Thread {
+        private boolean isRun = false;
+        private int searchPage = 0;
+        public SearchThread(int page) {
+            isRun = false;
+            searchPage = page;
+        }
+        public void setStopState() {
+            isRun = false;
+        }
+        @Override
+        public void run() {
+            isRun = true;
+            TinySouClient client = new TinySouClient(engine_token);
+            client.setPage(searchPage);
+            String result = client.Search(search_content);
+            Message message = Message.obtain();
+            message.obj = result;
+            TinySouSearchActivity.this.handler1.sendMessage(message);
+        }
+        public boolean isRun(){
+            return this.isRun;
+        }
+    }
+
+    //自动补全线程
+    class AutoCompleteThread extends Thread {
+        private boolean isRun = false;
+        private int searchPage = 0;
+        public AutoCompleteThread() {
+            isRun = false;
+        }
+        public void setStopState() {
+            isRun = false;
+        }
+        @Override
+        public void run() {
+            isRun = true;
+            TinySouClient client = new TinySouClient(engine_token);
+            client.setPage(searchPage);
+            String result = client.Search(search_content);
+            Message message = Message.obtain();
+            message.obj = result;
+            TinySouSearchActivity.this.handler2.sendMessage(message);
+        }
+        public boolean isRun(){
+            return this.isRun;
+        }
+    }
 }
 
