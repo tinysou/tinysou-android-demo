@@ -65,19 +65,21 @@ public class TinySouSearchActivity extends Activity {
             listHelp.setCurrentPage(Current_page);
             listHelp.setSearch(tinySouHelp);
             Max_page = listHelp.getMaxPage();
+            List<Map<String, String>> Search = listHelp.getSearch();
             if(Current_page == 0) {
-                List<Map<String, String>> Search = listHelp.getSearch();
+                UrlList = new ArrayList<String>();
+                List<String> UrlListNew = listHelp.getUrlList();
+                UrlList.addAll(UrlListNew);
                 SearchDisplay = new ArrayList<Map<String, String>>();
                 SearchDisplay.addAll(Search);
-                UrlList = listHelp.getUrlList();
                 SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, SearchDisplay,
                         R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
                 lt1.setAdapter(adapter);
-
                 isSearching = 1;
                 swipeLayout.setRefreshing(false);
             }else {
-                List<Map<String, String>> Search = listHelp.getSearch();
+                List<String> UrlListNew = listHelp.getUrlList();
+                UrlList.addAll(UrlListNew);
                 SearchDisplay.addAll(Search);
                 SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, SearchDisplay,
                         R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
@@ -89,6 +91,13 @@ public class TinySouSearchActivity extends Activity {
                 System.out.println("记录111： "+"x "+lt1.getScrollX()+" y "+lt1.getScrollY());
                 //System.out.println("x " + scrolledX + "y " + scrolledY);
             }
+            lt1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                @Override
+                public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
+                    Intent it = new Intent(Intent.ACTION_VIEW, Uri.parse(UrlList.get(arg2)));
+                    startActivity(it);
+                }
+            });
 
             //adapter.notifyDataSetChanged();
         }
@@ -113,21 +122,22 @@ public class TinySouSearchActivity extends Activity {
             listHelp.setCurrentPage(Current_page);
             listHelp.setAutoCompleteList(tinySouHelp);
             Max_page = listHelp.getMaxPage();
-            UrlList = listHelp.getUrlList();
+            UrlList = new ArrayList<String>();
+            List<String> UrlListNew = listHelp.getUrlList();
+            UrlList.addAll(UrlListNew);
             System.out.println("----------------------------"+UrlList.size());
             for(int i=0;i<UrlList.size();i++){
                 System.out.println("url   "+ i + " "+ UrlList.get(i));
             }
             List<Map<String, String>> AutoCompleteList = listHelp.getAutoCompleteList();
-            SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, AutoCompleteList,
+            SearchDisplay = new ArrayList<Map<String, String>>();
+            SearchDisplay.addAll(AutoCompleteList);
+            SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, SearchDisplay,
                     R.layout.list_item, new String[] {"title", "sections", "url_sp"}, new int[] {R.id.title, R.id.sections, R.id.url_sp});
             lt1.setAdapter(adapter);
             lt1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                    System.out.println("asdfghjkl");
-                    System.out.println(arg2);
-                    System.out.println(UrlList.get(arg2));
                     Intent it = new Intent(Intent.ACTION_VIEW, Uri.parse(UrlList.get(arg2)));
                     startActivity(it);
                 }
@@ -148,6 +158,7 @@ public class TinySouSearchActivity extends Activity {
         handleIntent(getIntent());
         setContentView(R.layout.activity_tiny_sou_search);
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        //监听下拉刷新
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -170,13 +181,14 @@ public class TinySouSearchActivity extends Activity {
                 android.R.color.holo_green_light, android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
         lt1 = (ListView) findViewById(R.id.list1);
+        //监听上拉加载更多
         lt1.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 // 当不滚动时
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
-                    System.out.println("记录： "+"x "+lt1.getScrollX()+" y "+lt1.getScrollY());
-                    System.out.println("记录： "+"position "+lt1.getFirstVisiblePosition());
+                    //System.out.println("记录： "+"x "+lt1.getScrollX()+" y "+lt1.getScrollY());
+                    //System.out.println("记录： "+"position "+lt1.getFirstVisiblePosition());
                     // 判断是否滚动到底部
                     if (view.getLastVisiblePosition() == view.getCount() - 1) {
                     //加载更多功能的代码

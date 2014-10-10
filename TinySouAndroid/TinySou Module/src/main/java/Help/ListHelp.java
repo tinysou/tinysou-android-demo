@@ -57,18 +57,19 @@ public class ListHelp {
             Pattern p3 = Pattern.compile("T[A-Z0-9:.]+");
             Matcher m3 = p3.matcher(tinySouHelp.records.get(i).document.updated_at);
             String date = m3.replaceFirst("");
-            System.out.println(date);
+            //System.out.println(date);
             //匹配URL的部分
             String url = tinySouHelp.records.get(i).document.url;
             this.UrlList.add(url);
             Pattern p4 = Pattern.compile("//[A-Za-z0-9.-]+/[\\w]?");
-            System.out.println(url);
+            //System.out.println(url);
             Matcher m4 = p4.matcher(url);
-            if (m4.find()) {
-                System.out.println(m4.group(0));
-            }
+            //if (m4.find()) {
+            //    System.out.println(m4.group(0));
+            //}
             //匹配URL的‘//’
             Pattern p5 = Pattern.compile("//");
+            m4.find();
             Matcher m5 = p5.matcher(m4.group(0));
             //修改为www.baidu.com/p...2014-09-20风格
             String url_sp = m5.replaceFirst("") + "..." + date;
@@ -109,18 +110,19 @@ public class ListHelp {
             Pattern p3 = Pattern.compile("T[A-Z0-9:.]+");
             Matcher m3 = p3.matcher(tinySouHelp.records.get(i).document.updated_at);
             String date = m3.replaceFirst("");
-            System.out.println(date);
+            //System.out.println(date);
             //匹配URL的部分
             String url = tinySouHelp.records.get(i).document.url;
             this.UrlList.add(url);
             Pattern p4 = Pattern.compile("//[A-Za-z0-9.-]+/[\\w]?");
-            System.out.println(url);
+            //System.out.println(url);
             Matcher m4 = p4.matcher(url);
-            if (m4.find()) {
-                System.out.println(m4.group(0));
-            }
+            //if (m4.find()) {
+            //   System.out.println(m4.group(0));
+            //}
             //匹配URL的‘//’
             Pattern p5 = Pattern.compile("//");
+            m4.find();
             Matcher m5 = p5.matcher(m4.group(0));
             //修改为www.baidu.com/p...2014-09-20风格
             String url_sp = m5.replaceFirst("") + "..." + date;
