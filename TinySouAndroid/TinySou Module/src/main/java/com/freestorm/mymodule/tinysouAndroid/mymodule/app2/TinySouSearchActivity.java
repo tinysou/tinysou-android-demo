@@ -45,6 +45,7 @@ public class TinySouSearchActivity extends Activity {
     protected int scrolledX;
     protected int scrolledY;
     protected int position;
+    protected int lvChildTop;
 
     private ListView lt1;
     private SwipeRefreshLayout swipeLayout;
@@ -100,7 +101,8 @@ public class TinySouSearchActivity extends Activity {
                 lt1.setAdapter(adapter);
                 isSearching = 1;
                 swipeLayout.setRefreshing(false);
-                lt1.setSelection(position);
+                lt1.setSelectionFromTop(position, lvChildTop);
+                //lt1.setSelection(position);
                 //lt1.scrollTo(scrolledX, scrolledY);
                 System.out.println("记录111： "+"x "+lt1.getScrollX()+" y "+lt1.getScrollY());
                 //System.out.println("x " + scrolledX + "y " + scrolledY);
@@ -226,6 +228,8 @@ public class TinySouSearchActivity extends Activity {
                             scrolledY = lt1.getScrollY();
                         //}
                         position = lt1.getFirstVisiblePosition();
+                        View v = lt1.getChildAt(0);
+                        lvChildTop = (v == null) ? 0 : v.getTop();
                         System.out.println("记录： "+"position "+position);
                         System.out.println("loadmore");
                         System.out.println("记录： "+"x "+scrolledX+" y "+scrolledY);
