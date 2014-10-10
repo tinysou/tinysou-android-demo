@@ -64,6 +64,13 @@ public class TinySouSearchActivity extends Activity {
             String content = msg.obj.toString();
             //如果输入内容为空
             if("".equals(content)){
+                List<Map<String, String>> SearchDisplay = new ArrayList<Map<String, String>>();
+                SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, SearchDisplay,
+                        R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
+                lt1.setAdapter(adapter);
+                isSearching = 1;
+                swipeLayout.setRefreshing(false);
+                searchThread.setStopState();
                 return;
             }
             Gson gson = new Gson();
@@ -105,7 +112,7 @@ public class TinySouSearchActivity extends Activity {
                     startActivity(it);
                 }
             });
-            System.out.println("run? " + searchThread.isRun());
+            //System.out.println("run? " + searchThread.isRun());
             searchThread.setStopState();
             //adapter.notifyDataSetChanged();
         }
@@ -120,10 +127,15 @@ public class TinySouSearchActivity extends Activity {
             String content = msg.obj.toString();
             //如果输入内容为空
             if("".equals(content)){
-                lt1.setVisibility(8);
+                List<Map<String, String>> SearchDisplay = new ArrayList<Map<String, String>>();
+                SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, SearchDisplay,
+                        R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
+                lt1.setAdapter(adapter);
+                isSearching = 0;
+                swipeLayout.setRefreshing(false);
+                autoCompleteThread.setStopState();
                 return;
             }
-            lt1.setVisibility(0);
             Gson gson = new Gson();
             TinySouHelp tinySouHelp = gson.fromJson(content, TinySouHelp.class);
             ListHelp listHelp = new ListHelp();
@@ -152,7 +164,7 @@ public class TinySouSearchActivity extends Activity {
             });
             isSearching=0;
             swipeLayout.setRefreshing(false);
-            System.out.println("run? " + autoCompleteThread.isRun());
+            //System.out.println("run? " + autoCompleteThread.isRun());
             autoCompleteThread.setStopState();
         }
     };
