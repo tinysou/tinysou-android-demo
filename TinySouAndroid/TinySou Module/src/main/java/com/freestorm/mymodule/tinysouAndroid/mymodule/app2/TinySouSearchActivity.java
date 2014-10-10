@@ -4,6 +4,9 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -33,7 +36,8 @@ import android.support.v4.widget.SwipeRefreshLayout;
 
 public class TinySouSearchActivity extends Activity {
 
-    public String engine_token = "0b732cc0ea3c11874190";
+    protected ApplicationInfo appInfo = null;
+    protected String engine_token = null;
     protected String search_content = "";//默认为空
     protected int Current_page = 0;//当前显示页数
     protected int Max_page = 0;//最大页数
@@ -153,6 +157,13 @@ public class TinySouSearchActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        try {
+            appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
+            System.out.println(appInfo.metaData.getString("engine_token"));
+            this.engine_token = appInfo.metaData.getString("engine_token");
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
         //setContentView(R.layout.activity_main);
         System.out.println("111111");
         handleIntent(getIntent());
@@ -295,7 +306,7 @@ public class TinySouSearchActivity extends Activity {
         search_content = query;
         new Thread(new Runnable() {
             public void run() {
-                TinySouClient client = new TinySouClient(engine_token);
+                TinySouClient client = new TinySouClient(TinySouSearchActivity.this.engine_token);
                 client.setPage(page);
                 String result = client.Search(search_content);
                 Message message = Message.obtain();
@@ -309,8 +320,7 @@ public class TinySouSearchActivity extends Activity {
         isSearching=1;
         new Thread(new Runnable() {
             public void run() {
-                System.out.println(engine_token);
-                TinySouClient client = new TinySouClient(engine_token);
+                TinySouClient client = new TinySouClient(TinySouSearchActivity.this.engine_token);
                 String result = client.AutoSearch(query);
                 if("".equals(query)) {
                     System.out.println("sadasd" + query);

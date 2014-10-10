@@ -8,6 +8,9 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name" >
+        <meta-data
+            android:name="engine_token"
+            android:value="@string/engine_token" />
         <activity
             android:name=".TinySouSearchActivity"
             android:label="@string/app_name" >
