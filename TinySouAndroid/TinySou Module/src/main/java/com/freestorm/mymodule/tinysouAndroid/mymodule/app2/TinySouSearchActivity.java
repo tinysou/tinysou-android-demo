@@ -41,9 +41,7 @@ public class TinySouSearchActivity extends Activity {
     protected int Current_page = 0;//当前显示页数
     protected int Max_page = 0;//最大页数
     protected List<String> UrlList = new ArrayList<String>();
-    protected int isSearching = 0;
-    protected int scrolledX;
-    protected int scrolledY;
+    //protected int isSearching = 0;
     protected int position;
     protected int lvChildTop;
 
@@ -69,7 +67,7 @@ public class TinySouSearchActivity extends Activity {
                 SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, SearchDisplay,
                         R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
                 lt1.setAdapter(adapter);
-                isSearching = 1;
+                //isSearching = 1;
                 swipeLayout.setRefreshing(false);
                 searchThread.setStopState();
                 return;
@@ -90,7 +88,7 @@ public class TinySouSearchActivity extends Activity {
                 SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, SearchDisplay,
                         R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
                 lt1.setAdapter(adapter);
-                isSearching = 1;
+                //isSearching = 1;
                 swipeLayout.setRefreshing(false);
             }else {
                 List<String> UrlListNew = listHelp.getUrlList();
@@ -99,7 +97,7 @@ public class TinySouSearchActivity extends Activity {
                 SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, SearchDisplay,
                         R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
                 lt1.setAdapter(adapter);
-                isSearching = 1;
+                //isSearching = 1;
                 swipeLayout.setRefreshing(false);
                 lt1.setSelectionFromTop(position, lvChildTop);
                 //lt1.setSelection(position);
@@ -133,7 +131,7 @@ public class TinySouSearchActivity extends Activity {
                 SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, SearchDisplay,
                         R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
                 lt1.setAdapter(adapter);
-                isSearching = 0;
+                //isSearching = 0;
                 swipeLayout.setRefreshing(false);
                 autoCompleteThread.setStopState();
                 return;
@@ -164,7 +162,7 @@ public class TinySouSearchActivity extends Activity {
                     startActivity(it);
                 }
             });
-            isSearching=0;
+            //isSearching=0;
             swipeLayout.setRefreshing(false);
             //System.out.println("run? " + autoCompleteThread.isRun());
             autoCompleteThread.setStopState();
@@ -218,21 +216,16 @@ public class TinySouSearchActivity extends Activity {
             public void onScrollStateChanged(AbsListView view, int scrollState) {
                 // 当不滚动时
                 if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
-                    //System.out.println("记录： "+"x "+lt1.getScrollX()+" y "+lt1.getScrollY());
                     //System.out.println("记录： "+"position "+lt1.getFirstVisiblePosition());
                     // 判断是否滚动到底部
                     if (view.getLastVisiblePosition() == view.getCount() - 1) {
                     //加载更多功能的代码
-                        //if (currentMenuInfo != null) {
-                            scrolledX = lt1.getScrollX();
-                            scrolledY = lt1.getScrollY();
-                        //}
+
                         position = lt1.getFirstVisiblePosition();
                         View v = lt1.getChildAt(0);
                         lvChildTop = (v == null) ? 0 : v.getTop();
                         System.out.println("记录： "+"position "+position);
                         System.out.println("loadmore");
-                        System.out.println("记录： "+"x "+scrolledX+" y "+scrolledY);
                         if(searchThread.isRun()){
                             System.out.println("还在加载中，请稍等...");
                         }else {
@@ -327,14 +320,14 @@ public class TinySouSearchActivity extends Activity {
     //-------------------------------------执行搜索操作函数-------------------------------------
 
     public void Search(String query, int page){
-        isSearching =1;
+        //isSearching =1;
         search_content = query;
         searchThread = new SearchThread(page);
         searchThread.start();
     }
 
     public void autoComplete(String query){
-        isSearching=1;
+        //isSearching=1;
         search_content = query;
         autoCompleteThread =  new AutoCompleteThread();
         autoCompleteThread.start();
