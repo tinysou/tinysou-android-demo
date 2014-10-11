@@ -1,8 +1,3 @@
-/*
- * Copyright 2014 Freestorm Inc.
- * Author: Yeming Wang
- * Data: 2014.10.11
- */
 package com.freestorm.mymodule.tinysouAndroid.mymodule.app2;
 
 import android.app.Activity;
@@ -37,13 +32,18 @@ import Help.ListHelp;
 import Help.TinySouClient;
 import Help.TinySouHelp;
 
+/**
+ * Created by freestorm on 14-9-22.
+ * Author:Yeming Wang
+ * Data: 2014.10.11
+ **/
 public class TinySouSearchActivity extends Activity {
 
     protected ApplicationInfo appInfo = null;//获取当前应用
     protected String engine_token = null;//微搜索engine_token
     protected String search_content = "";//默认为空
-    protected int Current_page = 0;//当前显示页数
-    protected int Max_page = 0;//最大页数
+    protected int current_page = 0;//当前显示页数
+    protected int max_page = 0;//最大页数
     protected List<String> UrlList = new ArrayList<String>();//存储搜索结果url链接信息
     protected int position;//用于记忆和恢复listView滚动位置
     protected int lvChildTop;//用于记忆和恢复listView滚动位置
@@ -86,7 +86,7 @@ public class TinySouSearchActivity extends Activity {
                 //System.out.println("刷新开始!!!"+search_content);
                 if (swipeLayout.isRefreshing()==true){
                     //System.out.println("刷新中!!!"+search_content);
-                    Current_page = 0;//重新刷新，当前页面归零
+                    current_page = 0;//重新刷新，当前页面归零
                     Search(search_content, 0);
                 }
                 //System.out.println("刷新结束!!!");
@@ -114,11 +114,11 @@ public class TinySouSearchActivity extends Activity {
                         if(searchThread.isRun()){
                             //System.out.println("还在加载中，请稍等...");
                         }else {
-                            if (Current_page + 1 < Max_page) {
-                                Current_page++;
-                                Search(search_content, Current_page);
+                            if (current_page + 1 < max_page) {
+                                current_page++;
+                                Search(search_content, current_page);
                             } else {
-                                //System.out.println("当前页  " + Current_page + "最大页 " + Max_page + " 没有更多了！");
+                                //System.out.println("当前页  " + current_page + "最大页 " + max_page + " 没有更多了！");
                             }
                         }
                     }
@@ -150,7 +150,7 @@ public class TinySouSearchActivity extends Activity {
                 //输入框文字改变
                 public boolean onQueryTextChange(String newText){
                     // this is your adapter that will be filtered
-                    Current_page = 0;//重新刷新，当前页面归零
+                    current_page = 0;//重新刷新，当前页面归零
                     search_content = newText;
                     autoComplete(newText);
                     return true;
@@ -160,7 +160,7 @@ public class TinySouSearchActivity extends Activity {
                     // this is your adapter that will be filtered
                     search_content = query;
                     Search(search_content, 0);
-                    Current_page = 0;//重新搜索，当前页面归零
+                    current_page = 0;//重新搜索，当前页面归零
                     return true;
                 }
             };
@@ -199,7 +199,7 @@ public class TinySouSearchActivity extends Activity {
             String query = intent.getStringExtra(SearchManager.QUERY);
             search_content = query;
             Search(search_content, 0);
-            Current_page = 0;//重新搜索，当前页面归零
+            current_page = 0;//重新搜索，当前页面归零
         }
     }
     */
@@ -222,11 +222,11 @@ public class TinySouSearchActivity extends Activity {
             Gson gson = new Gson();
             TinySouHelp tinySouHelp = gson.fromJson(content, TinySouHelp.class);
             ListHelp listHelp = new ListHelp();
-            listHelp.setCurrentPage(Current_page);
+            listHelp.setCurrentPage(current_page);
             listHelp.setSearch(tinySouHelp);
-            Max_page = listHelp.getMaxPage();
+            max_page = listHelp.getMaxPage();
             List<Map<String, String>> Search = listHelp.getSearch();
-            if(Current_page == 0) {
+            if(current_page == 0) {
                 UrlList = new ArrayList<String>();
                 List<String> UrlListNew = listHelp.getUrlList();
                 UrlList.addAll(UrlListNew);
@@ -276,9 +276,9 @@ public class TinySouSearchActivity extends Activity {
             Gson gson = new Gson();
             TinySouHelp tinySouHelp = gson.fromJson(content, TinySouHelp.class);//利用Gson处理搜索返回的json消息
             ListHelp listHelp = new ListHelp();
-            listHelp.setCurrentPage(Current_page);
+            listHelp.setCurrentPage(current_page);
             listHelp.setAutoCompleteList(tinySouHelp);
-            Max_page = listHelp.getMaxPage();
+            max_page = listHelp.getMaxPage();
             //Url储存
             UrlList = new ArrayList<String>();
             List<String> UrlListNew = listHelp.getUrlList();
@@ -303,14 +303,12 @@ public class TinySouSearchActivity extends Activity {
     };
 
     public void Search(String query, int page){
-        //isSearching =1;
         search_content = query;
         searchThread = new SearchThread(page);
         searchThread.start();
     }
 
     public void autoComplete(String query){
-        //isSearching=1;
         search_content = query;
         autoCompleteThread =  new AutoCompleteThread();
         autoCompleteThread.start();

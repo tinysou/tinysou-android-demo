@@ -5,6 +5,9 @@ import java.util.List;
 
 /**
  * Created by freestorm on 14-9-22.
+ * Author:Yeming Wang
+ * Data: 2014.10.11
+ * 简介：微搜索Json类，用于Gson处理
  */
 public class TinySouHelp {
     public INFO info;

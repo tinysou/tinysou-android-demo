@@ -9,6 +9,9 @@ import java.util.regex.Pattern;
 
 /**
  * Created by freestorm on 14-9-24.
+ * Author:Yeming Wang
+ * Data: 2014.10.11
+ * 简介：处理微搜索结果，返回ListView格式
  */
 public class ListHelp {
     protected List<Map<String, String>> Search = new ArrayList<Map<String, String>>();
@@ -33,16 +36,22 @@ public class ListHelp {
 
     public int getMaxPage(){return this.MaxPage;}
 
+    /*
+    设置搜索返回结果格式
+    标号 标题   1 特性 微搜索
+    片段        微搜索 搜索即服务 全文搜索
+    网址+日期    tinysou.com/f...2014-10-10
+     */
     public void setSearch(TinySouHelp tinySouHelp){
         int num = tinySouHelp.records.size();
         for (int i = 0; i < num; i++) {
             //<title, sections, url_sp>
             Map<String,String> item = new HashMap<String, String>();
             int title_num = this.CurrentPage*10 + i +1;
-            //--------------------------------------title处理
+            //title处理
             String title = title_num + " "+ tinySouHelp.records.get(i).document.title;
             item.put("title", title);
-            //--------------------------------------sections处理
+            //sections处理
             String sections = "";
             int sec_num = tinySouHelp.records.get(i).document.sections.size();
             for (int j = 0; j < sec_num; j++) {
@@ -52,7 +61,7 @@ public class ListHelp {
                 }
             }
             item.put("sections", sections);
-            //--------------------------------------url处理
+            //url处理
             //获取日期
             Pattern p3 = Pattern.compile("T[A-Z0-9:.]+");
             Matcher m3 = p3.matcher(tinySouHelp.records.get(i).document.updated_at);
@@ -86,16 +95,22 @@ public class ListHelp {
         }
     }
 
+    /*
+    设置自动补全返回结果格式
+    标号 标题   1 特性 微搜索
+    片段        微搜索 搜索即服务 全文搜索
+    网址+日期    tinysou.com/f...2014-10-10
+     */
     public void setAutoCompleteList(TinySouHelp tinySouHelp){
         int num = tinySouHelp.records.size();
         for (int i = 0; i < num; i++) {
             //<title, sections, url_sp>
             Map<String,String> item = new HashMap<String, String>();
             int title_num = this.CurrentPage*10 + i +1;
-            //--------------------------------------title处理
+            //title处理
             String title = title_num + " " + tinySouHelp.records.get(i).document.title;
             item.put("title", title);
-            //--------------------------------------sections处理
+            //sections处理
             String sections = "";
             int sec_num = tinySouHelp.records.get(i).document.sections.size();
             for (int j = 0; j < sec_num; j++) {
@@ -105,7 +120,7 @@ public class ListHelp {
                 }
             }
             item.put("sections", sections);
-            //--------------------------------------url处理
+            //url处理
             //获取日期
             Pattern p3 = Pattern.compile("T[A-Z0-9:.]+");
             Matcher m3 = p3.matcher(tinySouHelp.records.get(i).document.updated_at);

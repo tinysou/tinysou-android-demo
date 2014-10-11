@@ -18,6 +18,8 @@ import org.apache.http.util.EntityUtils;
 
 /**
  * Created by freestorm on 14-9-22.
+ * Author:Yeming Wang
+ * Data: 2014.10.11
  */
 public class HttpHelp {
     //--------------------------------------变量----------------------------------------------------
@@ -25,7 +27,6 @@ public class HttpHelp {
     public final String HTTP_POST = "POST";
     public final String HTTP_PUT = "PUT";
     public final String HTTP_DELETE = "DELETE";
-
     //当前请求的url
     protected String url = "";
     //HTTP请求类型
@@ -49,17 +50,11 @@ public class HttpHelp {
     //绑定 HTTP 请求的事件监听器
     protected OnHttpRequestListener onHttpRequestListener = null;
 
-    //报错
-
-    //------------------------------------构造函数---------------------------------------------------
-
     public HttpHelp(){}
 
     public HttpHelp(OnHttpRequestListener listener) {
         this.setOnHttpRequestListener(listener);
     }
-
-    //------------------------------------普通功能函数------------------------------------------------
 
     //设置当前请求的url
     public HttpHelp setUrl(String url)
@@ -105,7 +100,7 @@ public class HttpHelp {
         return this.requestType == HTTP_PUT;
     }
 
-    //判断是否为get请求
+    //判断是否为delete请求
     public boolean isDelete(){
         return this.requestType == HTTP_DELETE;
     }
@@ -145,7 +140,6 @@ public class HttpHelp {
         return this.statusCode;
     }
 
-    //------------------------------------http函数---------------------------------------------------
     //设置header
     public HttpHelp addHeader(String name, String value)
     {
@@ -228,7 +222,6 @@ public class HttpHelp {
         return content;
     }
 
-    //----------------------------------------HTTP事件监听-------------------------------------------
     // HTTP 请求操作时的事件监听接口
     public interface OnHttpRequestListener{
         public void onRequest(HttpHelp request) throws Exception;

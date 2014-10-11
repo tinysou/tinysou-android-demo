@@ -7,6 +7,8 @@ import java.util.regex.Pattern;
 
 /**
  * Created by freestorm on 14-9-22.
+ * Author:Yeming Wang
+ * Data: 2014.10.11
  */
 public class HtmlHelp {
 
