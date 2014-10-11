@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="debug">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/TinySouAndroid/app/build/intermediates/pre-dexed/debug/classes-9bdb6c8d42a80d00bda55fe2f90a4f65e23fc3b4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/TinySouAndroid/app/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-ca4bf1478c4c46e114504852e32de7aa7aebf469.jar!/" />
+      <root url="jar://$PROJECT_DIR$/TinySouAndroid/app/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-e31bf1bb0bf26298c0311ce0599b31ea9e7ac3b3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/TinySouAndroid/app/build/intermediates/pre-dexed/debug/gson-2.3-52ae7c7b85e5dfc14f6f61d22e61ceeebd06dfd2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/TinySouAndroid/app/build/intermediates/pre-dexed/debug/classes-155b9877894da6b2b92cba84e9341df9827481dc.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

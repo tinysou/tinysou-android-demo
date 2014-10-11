@@ -4,5 +4,12 @@
     <string name="app_name">TinySou Module</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="menu_search">search</string>
+    <string name="search_label">Search bar</string>
+    <string name="search_hint">please search!</string>
+    <string name="title">title</string>
+    <string name="sections">sections</string>
+    <string name="url_sp">url</string>
+    <string name="engine_token">0b732cc0ea3c11874190</string>
 
 </resources>

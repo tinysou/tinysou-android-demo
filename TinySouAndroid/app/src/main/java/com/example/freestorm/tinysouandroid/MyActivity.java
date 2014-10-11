@@ -6,6 +6,7 @@ import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.Gravity;
@@ -63,6 +64,7 @@ public class MyActivity extends Activity
                 break;
             case 2:
                 mTitle = getString(R.string.title_section2);
+                startActivity(new Intent(this, searchActivity.class));
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);

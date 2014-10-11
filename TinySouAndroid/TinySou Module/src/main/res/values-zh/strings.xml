@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">微搜索模块</string>
+    <string name="hello_world">你好！</string>
+    <string name="action_settings">设置</string>
+    <string name="menu_search">搜索</string>
+    <string name="search_label">搜索</string>
+    <string name="search_hint">站内搜索</string>
+    <string name="title">标题</string>
+    <string name="sections">片段</string>
+    <string name="url_sp">网址</string>
+    <string name="engine_token">0b732cc0ea3c11874190</string>
+
+</resources>
