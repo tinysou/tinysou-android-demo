@@ -20,7 +20,11 @@ android {
 }
 
 dependencies {
+<<<<<<< HEAD
     compile fileTree(include: ['*.jar'], dir: 'libs')
+=======
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+>>>>>>> remotes/origin/develop
     compile 'com.android.support:support-v4:20.0.0'
     compile files('libs/gson-2.3.jar')
 }

@@ -41,6 +41,7 @@ public class TinySouSearchActivity extends Activity {
     protected int Current_page = 0;//当前显示页数
     protected int Max_page = 0;//最大页数
     protected List<String> UrlList = new ArrayList<String>();
+<<<<<<< HEAD
     //protected int isSearching = 0;
     protected int position;
     protected int lvChildTop;
@@ -52,6 +53,12 @@ public class TinySouSearchActivity extends Activity {
     private SearchThread searchThread = new SearchThread(0);
     private AutoCompleteThread autoCompleteThread =  new AutoCompleteThread();
 
+=======
+    protected int isSearching = 0;
+
+    private ListView lt1;
+    private SwipeRefreshLayout swipeLayout;
+>>>>>>> remotes/origin/develop
 
     //------------------------------------处理搜索结果函数--------------------------------------------
     //处理搜索
@@ -79,6 +86,7 @@ public class TinySouSearchActivity extends Activity {
             listHelp.setSearch(tinySouHelp);
             Max_page = listHelp.getMaxPage();
             List<Map<String, String>> Search = listHelp.getSearch();
+<<<<<<< HEAD
             if(Current_page == 0) {
                 UrlList = new ArrayList<String>();
                 List<String> UrlListNew = listHelp.getUrlList();
@@ -115,6 +123,14 @@ public class TinySouSearchActivity extends Activity {
             //System.out.println("run? " + searchThread.isRun());
             searchThread.setStopState();
             //adapter.notifyDataSetChanged();
+=======
+            UrlList = listHelp.getUrlList();
+            SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, Search,
+                    R.layout.list_item, new String[] {"title", "sections", "url_sp"}, new int[] {R.id.title, R.id.sections, R.id.url_sp});
+            lt1.setAdapter(adapter);
+            isSearching = 0;
+            swipeLayout.setRefreshing(false);
+>>>>>>> remotes/origin/develop
         }
     };
 
@@ -162,10 +178,15 @@ public class TinySouSearchActivity extends Activity {
                     startActivity(it);
                 }
             });
+<<<<<<< HEAD
             //isSearching=0;
             swipeLayout.setRefreshing(false);
             //System.out.println("run? " + autoCompleteThread.isRun());
             autoCompleteThread.setStopState();
+=======
+            isSearching=0;
+            swipeLayout.setRefreshing(false);
+>>>>>>> remotes/origin/develop
         }
     };
 
@@ -187,6 +208,7 @@ public class TinySouSearchActivity extends Activity {
         handleIntent(getIntent());
         setContentView(R.layout.activity_tiny_sou_search);
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+<<<<<<< HEAD
         //监听下拉刷新
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -194,13 +216,21 @@ public class TinySouSearchActivity extends Activity {
                 if("".equals(search_content)) {
                     swipeLayout.setRefreshing(false);
                 }
+=======
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+>>>>>>> remotes/origin/develop
                 // TODO Auto-generated method stub
                 System.out.println("刷新开始!!!"+search_content);
 
                 if (swipeLayout.isRefreshing()==true){
                     System.out.println("刷新中!!!"+search_content);
+<<<<<<< HEAD
                     Current_page = 0;//重新刷新，当前页面归零
                     position = 0;
+=======
+>>>>>>> remotes/origin/develop
                     Search(search_content, 0);
                 }
                 System.out.println("刷新结束!!!");
@@ -209,6 +239,7 @@ public class TinySouSearchActivity extends Activity {
         swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light, android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
+<<<<<<< HEAD
         lt1 = (ListView) findViewById(R.id.list1);
         //监听上拉加载更多
         lt1.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -245,6 +276,8 @@ public class TinySouSearchActivity extends Activity {
             }
 
         });
+=======
+>>>>>>> remotes/origin/develop
     }
 
 
@@ -285,8 +318,11 @@ public class TinySouSearchActivity extends Activity {
                 public boolean onQueryTextChange(String newText)
                 {
                     // this is your adapter that will be filtered
+<<<<<<< HEAD
                     Current_page = 0;//重新刷新，当前页面归零
                     position = 0;
+=======
+>>>>>>> remotes/origin/develop
                     search_content = newText;
                     autoComplete(newText);
                     return true;
@@ -319,18 +355,41 @@ public class TinySouSearchActivity extends Activity {
 
     //-------------------------------------执行搜索操作函数-------------------------------------
 
+<<<<<<< HEAD
     public void Search(String query, int page){
         //isSearching =1;
+=======
+    public void Search(String query, final int page){
+        isSearching =1;
+>>>>>>> remotes/origin/develop
         search_content = query;
         searchThread = new SearchThread(page);
         searchThread.start();
     }
 
+<<<<<<< HEAD
     public void autoComplete(String query){
         //isSearching=1;
         search_content = query;
         autoCompleteThread =  new AutoCompleteThread();
         autoCompleteThread.start();
+=======
+    public void autoComplete(final String query){
+        isSearching=1;
+        new Thread(new Runnable() {
+            public void run() {
+                System.out.println(engine_token);
+                TinySouClient client = new TinySouClient(engine_token);
+                String result = client.AutoSearch(query);
+                if("".equals(query)) {
+                    System.out.println("sadasd" + query);
+                }
+                Message message = Message.obtain();
+                message.obj = result;
+                handler2.sendMessage(message);
+            }
+        }).start();
+>>>>>>> remotes/origin/develop
     }
 
     public void LastPage(final View view){

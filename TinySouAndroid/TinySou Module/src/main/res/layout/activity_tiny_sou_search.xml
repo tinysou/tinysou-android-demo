@@ -3,6 +3,16 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/swipe_container"
+<<<<<<< HEAD
+=======
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TinySouSearchActivity">
+
+<ListView
+    android:id="@+id/list1"
+    android:layout_height="wrap_content"
+>>>>>>> remotes/origin/develop
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TinySouSearchActivity">
@@ -14,5 +24,10 @@
         android:smoothScrollbar="true">
     </ListView>
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> remotes/origin/develop
 </android.support.v4.widget.SwipeRefreshLayout>
 
