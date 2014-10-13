@@ -22,15 +22,15 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
 
-import com.google.gson.Gson;
+import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import Help.Json.TinySouJsonHelp;
 import Help.ListHelp;
 import Help.TinySouClient;
-import Help.TinySouHelp;
 
 /**
  * Created by freestorm on 14-9-22.
@@ -219,11 +219,10 @@ public class TinySouSearchActivity extends Activity {
                 searchThread.setStopState();
                 return;
             }
-            Gson gson = new Gson();
-            TinySouHelp tinySouHelp = gson.fromJson(content, TinySouHelp.class);
+            TinySouJsonHelp tinySouJsonHelp = JSON.parseObject(content, TinySouJsonHelp.class);
             ListHelp listHelp = new ListHelp();
             listHelp.setCurrentPage(current_page);
-            listHelp.setSearch(tinySouHelp);
+            listHelp.setSearch(tinySouJsonHelp);
             max_page = listHelp.getMaxPage();
             List<Map<String, String>> Search = listHelp.getSearch();
             if(current_page == 0) {
@@ -273,11 +272,10 @@ public class TinySouSearchActivity extends Activity {
                 autoCompleteThread.setStopState();
                 return;
             }
-            Gson gson = new Gson();
-            TinySouHelp tinySouHelp = gson.fromJson(content, TinySouHelp.class);//利用Gson处理搜索返回的json消息
+            TinySouJsonHelp tinySouJsonHelp = JSON.parseObject(content, TinySouJsonHelp.class);
             ListHelp listHelp = new ListHelp();
             listHelp.setCurrentPage(current_page);
-            listHelp.setAutoCompleteList(tinySouHelp);
+            listHelp.setAutoCompleteList(tinySouJsonHelp);
             max_page = listHelp.getMaxPage();
             //Url储存
             UrlList = new ArrayList<String>();

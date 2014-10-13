@@ -7,6 +7,8 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import Help.Json.TinySouJsonHelp;
+
 /**
  * Created by freestorm on 14-9-24.
  * Author:Yeming Wang
@@ -42,20 +44,20 @@ public class ListHelp {
     片段        微搜索 搜索即服务 全文搜索
     网址+日期    tinysou.com/f...2014-10-10
      */
-    public void setSearch(TinySouHelp tinySouHelp){
-        int num = tinySouHelp.records.size();
+    public void setSearch(TinySouJsonHelp tinySouJsonHelp){
+        int num = tinySouJsonHelp.records.size();
         for (int i = 0; i < num; i++) {
             //<title, sections, url_sp>
             Map<String,String> item = new HashMap<String, String>();
             int title_num = this.CurrentPage*10 + i +1;
             //title处理
-            String title = title_num + " "+ tinySouHelp.records.get(i).document.title;
+            String title = title_num + " "+ tinySouJsonHelp.records.get(i).document.title;
             item.put("title", title);
             //sections处理
             String sections = "";
-            int sec_num = tinySouHelp.records.get(i).document.sections.size();
+            int sec_num = tinySouJsonHelp.records.get(i).document.sections.size();
             for (int j = 0; j < sec_num; j++) {
-                sections = sections + " " + tinySouHelp.records.get(i).document.sections.get(j);
+                sections = sections + " " + tinySouJsonHelp.records.get(i).document.sections.get(j);
                 if (j > 5) {
                     break;
                 }
@@ -64,11 +66,11 @@ public class ListHelp {
             //url处理
             //获取日期
             Pattern p3 = Pattern.compile("T[A-Z0-9:.]+");
-            Matcher m3 = p3.matcher(tinySouHelp.records.get(i).document.updated_at);
+            Matcher m3 = p3.matcher(tinySouJsonHelp.records.get(i).document.updated_at);
             String date = m3.replaceFirst("");
             //System.out.println(date);
             //匹配URL的部分
-            String url = tinySouHelp.records.get(i).document.url;
+            String url = tinySouJsonHelp.records.get(i).document.url;
             this.UrlList.add(url);
             Pattern p4 = Pattern.compile("//[A-Za-z0-9.-]+/[\\w]?");
             //System.out.println(url);
@@ -85,8 +87,8 @@ public class ListHelp {
             item.put("url_sp", url_sp);
             this.Search.add(item);
             //获得总页数
-            int per_page = Integer.parseInt(tinySouHelp.info.per_page);
-            int total = Integer.parseInt(tinySouHelp.info.total);
+            int per_page = Integer.parseInt(tinySouJsonHelp.info.per_page);
+            int total = Integer.parseInt(tinySouJsonHelp.info.total);
             int total_page = total/per_page;
             if(total%per_page != 0){
                 total_page++;
@@ -101,20 +103,20 @@ public class ListHelp {
     片段        微搜索 搜索即服务 全文搜索
     网址+日期    tinysou.com/f...2014-10-10
      */
-    public void setAutoCompleteList(TinySouHelp tinySouHelp){
-        int num = tinySouHelp.records.size();
+    public void setAutoCompleteList(TinySouJsonHelp tinySouJsonHelp){
+        int num = tinySouJsonHelp.records.size();
         for (int i = 0; i < num; i++) {
             //<title, sections, url_sp>
             Map<String,String> item = new HashMap<String, String>();
             int title_num = this.CurrentPage*10 + i +1;
             //title处理
-            String title = title_num + " " + tinySouHelp.records.get(i).document.title;
+            String title = title_num + " " + tinySouJsonHelp.records.get(i).document.title;
             item.put("title", title);
             //sections处理
             String sections = "";
-            int sec_num = tinySouHelp.records.get(i).document.sections.size();
+            int sec_num = tinySouJsonHelp.records.get(i).document.sections.size();
             for (int j = 0; j < sec_num; j++) {
-                sections = sections + " " + tinySouHelp.records.get(i).document.sections.get(j);
+                sections = sections + " " + tinySouJsonHelp.records.get(i).document.sections.get(j);
                 if (j > 5) {
                     break;
                 }
@@ -123,11 +125,11 @@ public class ListHelp {
             //url处理
             //获取日期
             Pattern p3 = Pattern.compile("T[A-Z0-9:.]+");
-            Matcher m3 = p3.matcher(tinySouHelp.records.get(i).document.updated_at);
+            Matcher m3 = p3.matcher(tinySouJsonHelp.records.get(i).document.updated_at);
             String date = m3.replaceFirst("");
             //System.out.println(date);
             //匹配URL的部分
-            String url = tinySouHelp.records.get(i).document.url;
+            String url = tinySouJsonHelp.records.get(i).document.url;
             this.UrlList.add(url);
             Pattern p4 = Pattern.compile("//[A-Za-z0-9.-]+/[\\w]?");
             //System.out.println(url);
@@ -144,8 +146,8 @@ public class ListHelp {
             item.put("url_sp", url_sp);
             this.AutoCompleteList.add(item);
             //获得总页数
-            int per_page = Integer.parseInt(tinySouHelp.info.per_page);
-            int total = Integer.parseInt(tinySouHelp.info.total);
+            int per_page = Integer.parseInt(tinySouJsonHelp.info.per_page);
+            int total = Integer.parseInt(tinySouJsonHelp.info.total);
             int total_page = total/per_page;
             if(total%per_page != 0){
                 total_page++;
