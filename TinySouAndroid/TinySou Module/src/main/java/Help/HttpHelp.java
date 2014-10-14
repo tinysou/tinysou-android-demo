@@ -63,10 +63,20 @@ public class HttpHelp {
         return this;
     }
 
+    //获取当前Url
+    public String getUrl(){
+        return this.url;
+    }
+
     //设置请求超时时间
     public HttpHelp setConnectedTimeout(int timeout) {
         this.connectionTimeout = timeout;
         return this;
+    }
+
+    //获取请求超时时间
+    public int getConnectedTimeout() {
+        return this.connectionTimeout;
     }
 
     //设置远程数据读取超时时间
