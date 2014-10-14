@@ -14,29 +14,30 @@ public class TinySouJsonHelp {
     protected List<Records> records = new ArrayList<Records>();
     protected Errors errors;
 
-    public void TinySouJsonHelp(){}
+    public void TinySouJsonHelp() {
+    }
 
-    public void setInfo(Info info){
+    public void setInfo(Info info) {
         this.info = info;
     }
 
-    public Info getInfo(){
+    public Info getInfo() {
         return info;
     }
 
-    public void setRecords(List<Records> records){
+    public void setRecords(List<Records> records) {
         this.records = records;
     }
 
-    public List<Records> getRecords(){
+    public List<Records> getRecords() {
         return records;
     }
 
-    public void setErrors(Errors errors){
+    public void setErrors(Errors errors) {
         this.errors = errors;
     }
 
-    public Errors getErrors(){
+    public Errors getErrors() {
         return errors;
     }
 }

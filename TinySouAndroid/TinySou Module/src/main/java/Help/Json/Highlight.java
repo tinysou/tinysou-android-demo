@@ -11,27 +11,27 @@ public class Highlight {
     protected List<String> title = new ArrayList<String>();
     protected List<String> sections = new ArrayList<String>();
 
-    public void setBody(List<String> body){
+    public void setBody(List<String> body) {
         this.body = body;
     }
 
-    public List<String> getBody(){
+    public List<String> getBody() {
         return body;
     }
 
-    public void setTitle(List<String> title){
+    public void setTitle(List<String> title) {
         this.title = title;
     }
 
-    public List<String> getTitle(){
+    public List<String> getTitle() {
         return title;
     }
 
-    public void setSections(List<String> sections){
+    public void setSections(List<String> sections) {
         this.sections = sections;
     }
 
-    public List<String> getSections(){
+    public List<String> getSections() {
         return sections;
     }
 }

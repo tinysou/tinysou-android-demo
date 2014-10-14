@@ -9,11 +9,11 @@ import java.util.List;
 public class Errors {
     protected List<String> search_fields = new ArrayList<String>();
 
-    public void setSearchFields(List<String> search_fields){
+    public void setSearchFields(List<String> search_fields) {
         this.search_fields = search_fields;
     }
 
-    public List<String> getSearchFields(){
+    public List<String> getSearchFields() {
         return search_fields;
     }
 }

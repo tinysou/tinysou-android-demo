@@ -22,21 +22,28 @@ public class ListHelp {
     protected int MaxPage = 0;
     protected int CurrentPage = 0;
 
-    public void ListHelp(){}
+    public void ListHelp() {
+    }
 
-    public void setCurrentPage(int current_page){this.CurrentPage = current_page;}
+    public void setCurrentPage(int current_page) {
+        this.CurrentPage = current_page;
+    }
 
-    public List<Map<String, String>> getSearch(){
+    public List<Map<String, String>> getSearch() {
         return this.Search;
     }
 
-    public List<Map<String, String>> getAutoCompleteList(){
+    public List<Map<String, String>> getAutoCompleteList() {
         return this.AutoCompleteList;
     }
 
-    public List<String> getUrlList() {return this.UrlList;}
+    public List<String> getUrlList() {
+        return this.UrlList;
+    }
 
-    public int getMaxPage(){return this.MaxPage;}
+    public int getMaxPage() {
+        return this.MaxPage;
+    }
 
     /*
     设置搜索返回结果格式
@@ -44,14 +51,14 @@ public class ListHelp {
     片段        微搜索 搜索即服务 全文搜索
     网址+日期    tinysou.com/f...2014-10-10
      */
-    public void setSearch(TinySouJsonHelp tinySouJsonHelp){
+    public void setSearch(TinySouJsonHelp tinySouJsonHelp) {
         int num = tinySouJsonHelp.getRecords().size();
         for (int i = 0; i < num; i++) {
             //<title, sections, url_sp>
-            Map<String,String> item = new HashMap<String, String>();
-            int title_num = this.CurrentPage*10 + i +1;
+            Map<String, String> item = new HashMap<String, String>();
+            int title_num = this.CurrentPage * 10 + i + 1;
             //title处理
-            String title = title_num + " "+ tinySouJsonHelp.getRecords().get(i).getDocument().getTitle();
+            String title = title_num + " " + tinySouJsonHelp.getRecords().get(i).getDocument().getTitle();
             item.put("title", title);
             //sections处理
             String sections = "";
@@ -89,8 +96,8 @@ public class ListHelp {
             //获得总页数
             int per_page = Integer.parseInt(tinySouJsonHelp.getInfo().getPer_page());
             int total = Integer.parseInt(tinySouJsonHelp.getInfo().getTotal());
-            int total_page = total/per_page;
-            if(total%per_page != 0){
+            int total_page = total / per_page;
+            if (total % per_page != 0) {
                 total_page++;
             }
             this.MaxPage = total_page;
@@ -103,12 +110,12 @@ public class ListHelp {
     片段        微搜索 搜索即服务 全文搜索
     网址+日期    tinysou.com/f...2014-10-10
      */
-    public void setAutoCompleteList(TinySouJsonHelp tinySouJsonHelp){
+    public void setAutoCompleteList(TinySouJsonHelp tinySouJsonHelp) {
         int num = tinySouJsonHelp.getRecords().size();
         for (int i = 0; i < num; i++) {
             //<title, sections, url_sp>
-            Map<String,String> item = new HashMap<String, String>();
-            int title_num = this.CurrentPage*10 + i +1;
+            Map<String, String> item = new HashMap<String, String>();
+            int title_num = this.CurrentPage * 10 + i + 1;
             //title处理
             String title = title_num + " " + tinySouJsonHelp.getRecords().get(i).getDocument().getTitle();
             item.put("title", title);
@@ -148,8 +155,8 @@ public class ListHelp {
             //获得总页数
             int per_page = Integer.parseInt(tinySouJsonHelp.getInfo().getPer_page());
             int total = Integer.parseInt(tinySouJsonHelp.getInfo().getTotal());
-            int total_page = total/per_page;
-            if(total%per_page != 0){
+            int total_page = total / per_page;
+            if (total % per_page != 0) {
                 total_page++;
             }
             this.MaxPage = total_page;

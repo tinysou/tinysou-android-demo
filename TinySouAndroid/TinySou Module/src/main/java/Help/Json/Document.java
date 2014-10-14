@@ -16,67 +16,67 @@ public class Document {
     public List<String> sections = new ArrayList<String>();
     public String url = null;
 
-    public void setId(String id){
+    public void setId(String id) {
         this.id = id;
     }
 
-    public String getId(){
+    public String getId() {
         return id;
     }
 
-    public void setTitle(String title){
+    public void setTitle(String title) {
         this.title = title;
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return title;
     }
 
-    public void setTags(List<String> tags){
+    public void setTags(List<String> tags) {
         this.tags = tags;
     }
 
-    public List<String> getTags(){
+    public List<String> getTags() {
         return tags;
     }
 
-    public void setAuthor(String author){
+    public void setAuthor(String author) {
         this.author = author;
     }
 
-    public String getAuthor(){
+    public String getAuthor() {
         return author;
     }
 
-    public void setUpdatedAt(String updated_at){
+    public void setUpdatedAt(String updated_at) {
         this.updated_at = updated_at;
     }
 
-    public String getUpdatedAt(){
+    public String getUpdatedAt() {
         return updated_at;
     }
 
-    public void setBody(String body){
+    public void setBody(String body) {
         this.body = body;
     }
 
-    public String getBody(){
+    public String getBody() {
         return body;
     }
 
-    public void setSections(List<String> sections){
+    public void setSections(List<String> sections) {
         this.sections = sections;
     }
 
-    public List<String> getSections(){
+    public List<String> getSections() {
         return sections;
     }
 
-    public void setUrl(String url){
+    public void setUrl(String url) {
         this.url = url;
     }
 
-    public String getUrl(){
+    public String getUrl() {
         return url;
     }
 }

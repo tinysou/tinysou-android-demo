@@ -353,7 +353,7 @@ public class TinySouSearchActivity extends Activity {
             isRun = true;
             TinySouClient client = new TinySouClient(engine_token);
             client.setPage(searchPage);
-            String result = client.Search(search_content);
+            String result = client.AutoSearch(search_content);
             Message message = Message.obtain();
             message.obj = result;
             TinySouSearchActivity.this.handler2.sendMessage(message);
