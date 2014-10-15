@@ -1,5 +1,6 @@
 package Help;
 
+import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONStringer;
@@ -19,12 +20,14 @@ public class TinySouClient {
     protected String engine_token = null;
     //HTTP 请求方法 get 或 post
     protected String method = "post";
-    //HTTP 微搜索public 搜索url
+    //HTTP 微搜索public 搜索url````````
     protected String url = "http://api.tinysou.com/v1/public/search";
     //HTTP 微搜索public 自动补全url
     protected String url_as = "http://api.tinysou.com/v1/public/autocomplete";
     //显示的页数
     protected int page = 0;
+    //是否状态正常
+    protected boolean isError = false;
 
     public TinySouClient(String engine_token) {
         this.engine_token = engine_token;
@@ -40,6 +43,10 @@ public class TinySouClient {
 
     public String buildUrlAs(String SearchContent) {
         return this.url_as;
+    }
+
+    public boolean isError(){
+        return this.isError;
     }
 
     //建立搜索Request
@@ -62,7 +69,7 @@ public class TinySouClient {
                 // 配置要 POST 的数据
                 JSONStringer search_content = new JSONStringer().object()
                         .key("q").value(SearchContent);
-                System.out.print(`"SearchContent" + SearchContent);
+                System.out.print("SearchContent" + SearchContent);
                 search_content.key("c").value("page");
                 search_content.key("engine_key").value(EngineToken);
                 search_content.key("per_page").value("10");
@@ -81,7 +88,8 @@ public class TinySouClient {
 
             @Override
             public String onFailed(int statusCode, HttpHelp request) throws Exception {
-                return "GET 请求失败：statusCode " + statusCode;
+                TinySouClient.this.isError = true;
+                return "POST请求失败：statusCode " + statusCode;
             }
         });
         return post_request;
@@ -129,7 +137,8 @@ public class TinySouClient {
 
             @Override
             public String onFailed(int statusCode, HttpHelp request) throws Exception {
-                return "GET 请求失败：statusCode " + statusCode;
+                TinySouClient.this.isError = true;
+                return "POST请求失败：statusCode " + statusCode;
             }
         });
         return post_request;
@@ -165,8 +174,10 @@ public class TinySouClient {
             content = request.post(SearchUrl);
         } catch (IOException e) {
             content = "IO异常：" + e.getMessage();
+            this.isError = true;
         } catch (Exception e) {
             content = "异常：" + e.getMessage();
+            this.isError = true;
         }
         return content;
     }
