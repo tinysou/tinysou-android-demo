@@ -3,12 +3,14 @@ package Help;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
@@ -16,6 +18,9 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 /**
  * Created by freestorm on 14-9-22.
@@ -50,6 +55,8 @@ public class HttpHelp {
     protected HttpClient httpClient = null;
     //绑定 HTTP 请求的事件监听器
     protected OnHttpRequestListener onHttpRequestListener = null;
+    //异常信息
+    protected String exceptionMessage;
 
     public HttpHelp() {
     }
@@ -216,7 +223,23 @@ public class HttpHelp {
         //发送http请求并获取服务端响应状态
         try {
             this.httpResponse = this.httpClient.execute(this.httpRequest);
+        } catch (ConnectTimeoutException e) {
+            exceptionMessage = "连接超时：" + e.getMessage();
+            System.out.println("<-------ConnectTimeoutException------->");
+            e.printStackTrace();
+            System.out.println("<-------Exception end------->");
+        } catch (SocketTimeoutException e){
+            exceptionMessage = "socket连接超时：" + e.getMessage();
+            System.out.println("<-------SocketTimeoutException------->");
+            e.printStackTrace();
+            System.out.println("<-------Exception end------->");
+        } catch (IOException e) {
+            exceptionMessage = "IO异常：" + e.getMessage();
+            System.out.println("<-------IOException------->");
+            e.printStackTrace();
+            System.out.println("<-------Exception end------->");
         } catch (Exception e) {
+            exceptionMessage = "异常：：" + e.getMessage();
             System.out.println("<-------Exception------->");
             e.printStackTrace();
             System.out.println("<-------Exception end------->");

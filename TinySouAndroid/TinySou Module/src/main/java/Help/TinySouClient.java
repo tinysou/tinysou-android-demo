@@ -1,11 +1,14 @@
 package Help;
 
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONStringer;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.SocketTimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -156,8 +159,11 @@ public class TinySouClient {
             content = request.post(SearchUrl);
         } catch (IOException e) {
             content = "IO异常：" + e.getMessage();
+            this.isError = true;
         } catch (Exception e) {
-            content = "异常：" + e.getMessage();
+            content = request.exceptionMessage;
+            this.isError = true;
+            System.out.println("异常：");
         }
         return content;
     }
