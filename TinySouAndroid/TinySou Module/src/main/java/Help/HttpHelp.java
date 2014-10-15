@@ -85,10 +85,20 @@ public class HttpHelp {
         return this;
     }
 
+    //获取远程数据读取超时时间
+    public int getSoTimeout() {
+        return this.soTimeout;
+    }
+
     //设置获取内容的编码格式
     public HttpHelp setCharset(String Charset) {
         this.charset = Charset;
         return this;
+    }
+
+    //获取 获取内容的编码格式
+    public String getCharset() {
+        return this.charset;
     }
 
     //获取当前http请求类型
