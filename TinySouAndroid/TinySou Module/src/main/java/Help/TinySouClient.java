@@ -58,10 +58,11 @@ public class TinySouClient {
             public void onRequest(HttpHelp request) throws Exception {
                 // 设置发送请求的 header 信息
                 request.addHeader("Content-Type", "application/json");
+                System.out.println(request.getFirstHeader("Content-Type").getValue());
                 // 配置要 POST 的数据
                 JSONStringer search_content = new JSONStringer().object()
                         .key("q").value(SearchContent);
-                System.out.print("SearchContent" + SearchContent);
+                System.out.print(`"SearchContent" + SearchContent);
                 search_content.key("c").value("page");
                 search_content.key("engine_key").value(EngineToken);
                 search_content.key("per_page").value("10");

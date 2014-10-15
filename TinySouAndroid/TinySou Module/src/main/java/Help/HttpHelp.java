@@ -1,5 +1,6 @@
 package Help;
 
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
 import org.apache.http.client.HttpClient;
@@ -165,6 +166,16 @@ public class HttpHelp {
     public HttpHelp addHeader(String name, String value) {
         this.httpRequest.addHeader(name, value);
         return this;
+    }
+
+    //获取header
+    public Header[] getAllHeader(){
+        return httpRequest.getAllHeaders();
+    }
+
+    //获取First header
+    public Header getFirstHeader(String name){
+        return httpRequest.getFirstHeader(name);
     }
 
     //通过get方式获取资源
