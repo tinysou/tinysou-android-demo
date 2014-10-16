@@ -4,12 +4,13 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/tinysou_icon_black"
+        android:icon="@drawable/tinysou_icon_green"
         android:label="@string/app_name"
-        android:theme="@style/AppTheme" >
+        android:theme="@style/CustomActionBarTheme" >
         <activity
             android:name=".MyActivity"
-            android:label="@string/app_name">
+            android:label="@string/app_name"
+            android:icon="@drawable/tinysou_ico_white">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -19,7 +20,8 @@
         <activity
             android:name=".searchActivity"
             android:label="@string/title_activity_search"
-            android:parentActivityName=".MyActivity" >
+            android:parentActivityName=".MyActivity"
+            android:icon="@drawable/tinysou_ico_white">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.freestorm.tinysouandroid.MyActivity" />

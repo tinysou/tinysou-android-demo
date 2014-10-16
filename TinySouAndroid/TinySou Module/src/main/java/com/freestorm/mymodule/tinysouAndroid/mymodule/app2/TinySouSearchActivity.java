@@ -1,6 +1,7 @@
 package com.freestorm.mymodule.tinysouAndroid.mymodule.app2;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -21,12 +22,15 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import Help.Json.TinySouJsonHelp;
 import Help.ListHelp;
@@ -219,6 +223,12 @@ public class TinySouSearchActivity extends Activity {
                 searchThread.setStopState();
                 return;
             }
+            if(searchThread.isError()){
+                //new AlertDialog.Builder(TinySouSearchActivity.this).setTitle(content).
+                        //setIcon(android.R.drawable.ic_dialog_info).setPositiveButton("确定", null).show();
+                Toast.makeText(TinySouSearchActivity.this, content, Toast.LENGTH_SHORT).show();
+                return;
+            }
             TinySouJsonHelp tinySouJsonHelp = JSON.parseObject(content, TinySouJsonHelp.class);
             ListHelp listHelp = new ListHelp();
             listHelp.setCurrentPage(current_page);
@@ -272,6 +282,12 @@ public class TinySouSearchActivity extends Activity {
                 autoCompleteThread.setStopState();
                 return;
             }
+            if(autoCompleteThread.isError()) {
+                //new AlertDialog.Builder(TinySouSearchActivity.this).setTitle(content).
+                //        setIcon(android.R.drawable.ic_dialog_info).setPositiveButton("确定", null).show();
+                Toast.makeText(TinySouSearchActivity.this, content, Toast.LENGTH_SHORT).show();
+                return;
+            }
             TinySouJsonHelp tinySouJsonHelp = JSON.parseObject(content, TinySouJsonHelp.class);
             ListHelp listHelp = new ListHelp();
             listHelp.setCurrentPage(current_page);
@@ -316,6 +332,7 @@ public class TinySouSearchActivity extends Activity {
     class SearchThread extends Thread {
         private boolean isRun = false;
         private int searchPage = 0;
+        private boolean isError = false;
         public SearchThread(int page) {
             isRun = false;
             searchPage = page;
@@ -329,6 +346,7 @@ public class TinySouSearchActivity extends Activity {
             TinySouClient client = new TinySouClient(engine_token);
             client.setPage(searchPage);
             String result = client.Search(search_content);
+            this.isError = client.isError();
             Message message = Message.obtain();
             message.obj = result;
             TinySouSearchActivity.this.handler1.sendMessage(message);
@@ -336,12 +354,16 @@ public class TinySouSearchActivity extends Activity {
         public boolean isRun(){
             return this.isRun;
         }
+        public boolean isError(){
+            return this.isError;
+        }
     }
 
     //自动补全线程
     class AutoCompleteThread extends Thread {
         private boolean isRun = false;
         private int searchPage = 0;
+        private boolean isError = false;
         public AutoCompleteThread() {
             isRun = false;
         }
@@ -354,12 +376,26 @@ public class TinySouSearchActivity extends Activity {
             TinySouClient client = new TinySouClient(engine_token);
             client.setPage(searchPage);
             String result = client.AutoSearch(search_content);
+            this.isError = client.isError();
             Message message = Message.obtain();
             message.obj = result;
             TinySouSearchActivity.this.handler2.sendMessage(message);
         }
         public boolean isRun(){
             return this.isRun;
+        }
+        public boolean isError(){
+            return this.isError;
+        }
+    }
+
+    public boolean isError(String content){
+        Pattern p = Pattern.compile("POST请求失败");
+        Matcher m = p.matcher(content);
+        if(m.find()) {
+            return true;
+        }else{
+            return false;
         }
     }
 }

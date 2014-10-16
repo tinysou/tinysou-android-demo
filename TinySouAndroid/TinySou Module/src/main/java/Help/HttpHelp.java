@@ -1,13 +1,16 @@
 package Help;
 
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpPut;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.BasicHttpParams;
@@ -15,6 +18,9 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
+
+import java.io.IOException;
+import java.net.SocketTimeoutException;
 
 /**
  * Created by freestorm on 14-9-22.
@@ -30,7 +36,7 @@ public class HttpHelp {
     //当前请求的url
     protected String url = "";
     //HTTP请求类型
-    protected String requestType = HTTP_GET;
+    protected String requestType = HTTP_POST;
     //连接请求的超时时间
     protected int connectionTimeout = 5000;
     //读取远程数据的超时时间
@@ -39,8 +45,13 @@ public class HttpHelp {
     protected int statusCode = -1;
     //当前链接的字符编码
     protected String charset = HTTP.UTF_8;
-    // HTTP GET 请求管理器
-    protected HttpRequestBase httpRequest = null;
+    // HTTP 请求管理器
+    protected HttpRequestBase httpRequest = new HttpRequestBase() {
+        @Override
+        public String getMethod() {
+            return null;
+        }
+    };
     //HTTP 请求的配置参数
     protected HttpParams httpParameters = null;
     // HTTP 请求响应
@@ -49,6 +60,8 @@ public class HttpHelp {
     protected HttpClient httpClient = null;
     //绑定 HTTP 请求的事件监听器
     protected OnHttpRequestListener onHttpRequestListener = null;
+    //异常信息
+    protected String exceptionMessage;
 
     public HttpHelp() {
     }
@@ -99,6 +112,22 @@ public class HttpHelp {
     //获取 获取内容的编码格式
     public String getCharset() {
         return this.charset;
+    }
+
+    // 设置http请求类型
+    public void setRequestType(String type){
+        type = type.toLowerCase();
+        if (type.equals("get")) {
+            this.requestType = HTTP_GET;
+        } else if (type.equals("post")) {
+            this.requestType = HTTP_POST;
+        } else if (type.equals("put")) {
+            this.requestType = HTTP_PUT;
+        } else if (type.equals("delete")) {
+            this.requestType = HTTP_DELETE;
+        } else {
+            return;
+        }
     }
 
     //获取当前http请求类型
@@ -167,6 +196,16 @@ public class HttpHelp {
         return this;
     }
 
+    //获取header
+    public Header[] getAllHeader(){
+        return httpRequest.getAllHeaders();
+    }
+
+    //获取First header
+    public Header getFirstHeader(String name){
+        return httpRequest.getFirstHeader(name);
+    }
+
     //通过get方式获取资源
     public String get(String url) throws Exception {
         this.requestType = HTTP_GET;
@@ -205,7 +244,23 @@ public class HttpHelp {
         //发送http请求并获取服务端响应状态
         try {
             this.httpResponse = this.httpClient.execute(this.httpRequest);
+        } catch (ConnectTimeoutException e) {
+            exceptionMessage = "连接超时：" + e.getMessage();
+            System.out.println("<-------ConnectTimeoutException------->");
+            e.printStackTrace();
+            System.out.println("<-------Exception end------->");
+        } catch (SocketTimeoutException e){
+            exceptionMessage = "socket连接超时：" + e.getMessage();
+            System.out.println("<-------SocketTimeoutException------->");
+            e.printStackTrace();
+            System.out.println("<-------Exception end------->");
+        } catch (IOException e) {
+            exceptionMessage = "IO异常：" + e.getMessage();
+            System.out.println("<-------IOException------->");
+            e.printStackTrace();
+            System.out.println("<-------Exception end------->");
         } catch (Exception e) {
+            exceptionMessage = "异常：：" + e.getMessage();
             System.out.println("<-------Exception------->");
             e.printStackTrace();
             System.out.println("<-------Exception end------->");
