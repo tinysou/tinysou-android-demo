@@ -163,7 +163,6 @@ public class TinySouClient {
         } catch (Exception e) {
             content = request.exceptionMessage;
             this.isError = true;
-            System.out.println("异常：");
         }
         return content;
     }
@@ -182,7 +181,7 @@ public class TinySouClient {
             content = "IO异常：" + e.getMessage();
             this.isError = true;
         } catch (Exception e) {
-            content = "异常：" + e.getMessage();
+            content = request.exceptionMessage;
             this.isError = true;
         }
         return content;
