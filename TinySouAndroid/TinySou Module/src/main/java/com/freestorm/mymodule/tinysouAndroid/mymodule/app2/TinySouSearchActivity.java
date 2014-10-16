@@ -22,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.alibaba.fastjson.JSON;
 
@@ -223,8 +224,9 @@ public class TinySouSearchActivity extends Activity {
                 return;
             }
             if(searchThread.isError()){
-                new AlertDialog.Builder(TinySouSearchActivity.this).setTitle(content).
-                        setIcon(android.R.drawable.ic_dialog_info).setPositiveButton("确定", null).show();
+                //new AlertDialog.Builder(TinySouSearchActivity.this).setTitle(content).
+                        //setIcon(android.R.drawable.ic_dialog_info).setPositiveButton("确定", null).show();
+                Toast.makeText(TinySouSearchActivity.this, content, Toast.LENGTH_SHORT).show();
                 return;
             }
             TinySouJsonHelp tinySouJsonHelp = JSON.parseObject(content, TinySouJsonHelp.class);
@@ -281,9 +283,9 @@ public class TinySouSearchActivity extends Activity {
                 return;
             }
             if(autoCompleteThread.isError()) {
-                System.out.println("错误！");
-                new AlertDialog.Builder(TinySouSearchActivity.this).setTitle(content).
-                        setIcon(android.R.drawable.ic_dialog_info).setPositiveButton("确定", null).show();
+                //new AlertDialog.Builder(TinySouSearchActivity.this).setTitle(content).
+                //        setIcon(android.R.drawable.ic_dialog_info).setPositiveButton("确定", null).show();
+                Toast.makeText(TinySouSearchActivity.this, content, Toast.LENGTH_SHORT).show();
                 return;
             }
             TinySouJsonHelp tinySouJsonHelp = JSON.parseObject(content, TinySouJsonHelp.class);
