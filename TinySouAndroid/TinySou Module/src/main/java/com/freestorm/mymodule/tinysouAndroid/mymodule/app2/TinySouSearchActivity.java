@@ -43,7 +43,7 @@ import Help.TinySouClient;
  * Created by freestorm on 14-9-22.
  * Author:Yeming Wang
  * Data: 2014.10.11
- **/
+ */
 public class TinySouSearchActivity extends Activity {
 
     protected ApplicationInfo appInfo = null;//获取当前应用
@@ -59,7 +59,7 @@ public class TinySouSearchActivity extends Activity {
     //search显示内容
     private List<Map<String, String>> SearchDisplay = new ArrayList<Map<String, String>>();
     private SearchThread searchThread = new SearchThread(0);//搜索线程
-    private AutoCompleteThread autoCompleteThread =  new AutoCompleteThread();//自动补全线程
+    private AutoCompleteThread autoCompleteThread = new AutoCompleteThread();//自动补全线程
 
 
     /*
@@ -80,7 +80,7 @@ public class TinySouSearchActivity extends Activity {
         //setContentView(R.layout.activity_main);
         //System.out.println("111111");
         //handleIntent(getIntent());
-        if(!isConnected(getApplicationContext())){
+        if (!isConnected(getApplicationContext())) {
             setNetworkMethod(TinySouSearchActivity.this);
         }
         setContentView(R.layout.activity_tiny_sou_search);
@@ -89,12 +89,12 @@ public class TinySouSearchActivity extends Activity {
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if("".equals(search_content)) {
+                if ("".equals(search_content)) {
                     swipeLayout.setRefreshing(false);//停止刷新
                 }
                 // TODO Auto-generated method stub
                 //System.out.println("刷新开始!!!"+search_content);
-                if (swipeLayout.isRefreshing()==true){
+                if (swipeLayout.isRefreshing() == true) {
                     //System.out.println("刷新中!!!"+search_content);
                     current_page = 0;//重新刷新，当前页面归零
                     Search(search_content, 0);
@@ -121,9 +121,9 @@ public class TinySouSearchActivity extends Activity {
                         lvChildTop = (v == null) ? 0 : v.getTop();
                         //System.out.println("记录： "+"position "+position);
                         //System.out.println("loadmore");
-                        if(searchThread.isRun()){
+                        if (searchThread.isRun()) {
                             //System.out.println("还在加载中，请稍等...");
-                        }else {
+                        } else {
                             if (current_page + 1 < max_page) {
                                 current_page++;
                                 Search(search_content, current_page);
@@ -134,6 +134,7 @@ public class TinySouSearchActivity extends Activity {
                     }
                 }
             }
+
             @Override
             public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             }
@@ -149,24 +150,25 @@ public class TinySouSearchActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.tiny_sou_search, menu);
-        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
             SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
             SearchView searchView = (SearchView) menu.findItem(R.id.search).getActionView();
             searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
             searchView.setIconifiedByDefault(false);//默认展开搜索框
             searchView.requestFocus();//默认开启焦点，打开输入法
             //监听输入框字符串变化
-            SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener(){
+            SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
                 //输入框文字改变
-                public boolean onQueryTextChange(String newText){
+                public boolean onQueryTextChange(String newText) {
                     // this is your adapter that will be filtered
                     current_page = 0;//重新刷新，当前页面归零
                     search_content = newText;
                     autoComplete(newText);
                     return true;
                 }
+
                 //提交搜索请求
-                public boolean onQueryTextSubmit(String query){
+                public boolean onQueryTextSubmit(String query) {
                     // this is your adapter that will be filtered
                     search_content = query;
                     Search(search_content, 0);
@@ -181,12 +183,12 @@ public class TinySouSearchActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if(item.getItemId() == R.id.search){
+        if (item.getItemId() == R.id.search) {
             onSearchRequested();
             return true;
-        }else if(item.getItemId() == R.id.action_settings ){
+        } else if (item.getItemId() == R.id.action_settings) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -215,12 +217,12 @@ public class TinySouSearchActivity extends Activity {
     */
 
     //处理搜索
-    private Handler handler1 = new Handler(){
+    private Handler handler1 = new Handler() {
         @Override
         public void handleMessage(android.os.Message msg) {
             String content = msg.obj.toString();
             //如果输入内容为空
-            if("".equals(content)){
+            if ("".equals(content)) {
                 List<Map<String, String>> SearchDisplay = new ArrayList<Map<String, String>>();
                 SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, SearchDisplay,
                         R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
@@ -229,9 +231,9 @@ public class TinySouSearchActivity extends Activity {
                 searchThread.setStopState();
                 return;
             }
-            if(searchThread.isError()){
+            if (searchThread.isError()) {
                 //new AlertDialog.Builder(TinySouSearchActivity.this).setTitle(content).
-                        //setIcon(android.R.drawable.ic_dialog_info).setPositiveButton("确定", null).show();
+                //setIcon(android.R.drawable.ic_dialog_info).setPositiveButton("确定", null).show();
                 Toast.makeText(TinySouSearchActivity.this, content, Toast.LENGTH_SHORT).show();
                 return;
             }
@@ -241,7 +243,7 @@ public class TinySouSearchActivity extends Activity {
             listHelp.setSearch(tinySouJsonHelp);
             max_page = listHelp.getMaxPage();
             List<Map<String, String>> Search = listHelp.getSearch();
-            if(current_page == 0) {
+            if (current_page == 0) {
                 UrlList = new ArrayList<String>();
                 List<String> UrlListNew = listHelp.getUrlList();
                 UrlList.addAll(UrlListNew);
@@ -251,7 +253,7 @@ public class TinySouSearchActivity extends Activity {
                         R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
                 lt1.setAdapter(adapter);
                 swipeLayout.setRefreshing(false);
-            }else {
+            } else {
                 List<String> UrlListNew = listHelp.getUrlList();
                 UrlList.addAll(UrlListNew);
                 SearchDisplay.addAll(Search);
@@ -279,7 +281,7 @@ public class TinySouSearchActivity extends Activity {
         public void handleMessage(android.os.Message msg) {
             String content = msg.obj.toString();
             //如果输入内容为空
-            if("".equals(content)){
+            if ("".equals(content)) {
                 List<Map<String, String>> SearchDisplay = new ArrayList<Map<String, String>>();
                 SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, SearchDisplay,
                         R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
@@ -288,7 +290,7 @@ public class TinySouSearchActivity extends Activity {
                 autoCompleteThread.setStopState();
                 return;
             }
-            if(autoCompleteThread.isError()) {
+            if (autoCompleteThread.isError()) {
                 //new AlertDialog.Builder(TinySouSearchActivity.this).setTitle(content).
                 //        setIcon(android.R.drawable.ic_dialog_info).setPositiveButton("确定", null).show();
                 Toast.makeText(TinySouSearchActivity.this, content, Toast.LENGTH_SHORT).show();
@@ -307,7 +309,7 @@ public class TinySouSearchActivity extends Activity {
             SearchDisplay = new ArrayList<Map<String, String>>();
             SearchDisplay.addAll(AutoCompleteList);
             SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, SearchDisplay,
-                    R.layout.list_item, new String[] {"title", "sections", "url_sp"}, new int[] {R.id.title, R.id.sections, R.id.url_sp});
+                    R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
             lt1.setAdapter(adapter);
             //设置Url链接
             lt1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -322,16 +324,24 @@ public class TinySouSearchActivity extends Activity {
         }
     };
 
-    public void Search(String query, int page){
-        search_content = query;
-        searchThread = new SearchThread(page);
-        searchThread.start();
+    public void Search(String query, int page) {
+        if (!isConnected(getApplicationContext())) {
+            setNetworkMethod(TinySouSearchActivity.this);
+        } else {
+            search_content = query;
+            searchThread = new SearchThread(page);
+            searchThread.start();
+        }
     }
 
-    public void autoComplete(String query){
-        search_content = query;
-        autoCompleteThread =  new AutoCompleteThread();
-        autoCompleteThread.start();
+    public void autoComplete(String query) {
+        if (!isConnected(getApplicationContext())) {
+            setNetworkMethod(TinySouSearchActivity.this);
+        } else {
+            search_content = query;
+            autoCompleteThread = new AutoCompleteThread();
+            autoCompleteThread.start();
+        }
     }
 
     //搜索线程
@@ -339,13 +349,16 @@ public class TinySouSearchActivity extends Activity {
         private boolean isRun = false;
         private int searchPage = 0;
         private boolean isError = false;
+
         public SearchThread(int page) {
             isRun = false;
             searchPage = page;
         }
+
         public void setStopState() {
             isRun = false;
         }
+
         @Override
         public void run() {
             isRun = true;
@@ -357,10 +370,12 @@ public class TinySouSearchActivity extends Activity {
             message.obj = result;
             TinySouSearchActivity.this.handler1.sendMessage(message);
         }
-        public boolean isRun(){
+
+        public boolean isRun() {
             return this.isRun;
         }
-        public boolean isError(){
+
+        public boolean isError() {
             return this.isError;
         }
     }
@@ -370,12 +385,15 @@ public class TinySouSearchActivity extends Activity {
         private boolean isRun = false;
         private int searchPage = 0;
         private boolean isError = false;
+
         public AutoCompleteThread() {
             isRun = false;
         }
+
         public void setStopState() {
             isRun = false;
         }
+
         @Override
         public void run() {
             isRun = true;
@@ -387,20 +405,22 @@ public class TinySouSearchActivity extends Activity {
             message.obj = result;
             TinySouSearchActivity.this.handler2.sendMessage(message);
         }
-        public boolean isRun(){
+
+        public boolean isRun() {
             return this.isRun;
         }
-        public boolean isError(){
+
+        public boolean isError() {
             return this.isError;
         }
     }
 
-    public boolean isError(String content){
+    public boolean isError(String content) {
         Pattern p = Pattern.compile("POST请求失败");
         Matcher m = p.matcher(content);
-        if(m.find()) {
+        if (m.find()) {
             return true;
-        }else{
+        } else {
             return false;
         }
     }
@@ -409,27 +429,27 @@ public class TinySouSearchActivity extends Activity {
      * 判断网络连接是否已开
      *true 已打开  false 未打开
      * */
-    public static boolean isConnected(Context context){
-        boolean bisConnFlag=false;
-        ConnectivityManager conManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+    public static boolean isConnected(Context context) {
+        boolean bisConnFlag = false;
+        ConnectivityManager conManager = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo network = conManager.getActiveNetworkInfo();
-        if(network!=null){
-            bisConnFlag=conManager.getActiveNetworkInfo().isAvailable();
+        if (network != null) {
+            bisConnFlag = conManager.getActiveNetworkInfo().isAvailable();
         }
         return bisConnFlag;
     }
 
     /**
-    * 如何网络没有打开，提示打开网络设置界面
-    **/
-    public void setNetworkMethod(final Context context){
+     * 如何网络没有打开，提示打开网络设置界面
+     */
+    public void setNetworkMethod(final Context context) {
         new AlertDialog.Builder(this).setTitle("网络设置提示").setMessage("网络连接不可用,是否进行设置?")
-            .setPositiveButton("设置", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    Intent intent = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
-                    context.startActivity(intent);
-                }
-            }).setNegativeButton("取消", null).show();
+                .setPositiveButton("设置", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Intent intent = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
+                        context.startActivity(intent);
+                    }
+                }).setNegativeButton("取消", null).show();
     }
 }
