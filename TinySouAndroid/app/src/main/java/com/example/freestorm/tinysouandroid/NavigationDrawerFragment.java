@@ -4,7 +4,6 @@ package com.example.freestorm.tinysouandroid;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
-import android.content.Intent;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,7 +20,12 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
+import android.widget.SimpleAdapter;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer.
@@ -98,6 +102,24 @@ public class NavigationDrawerFragment extends Fragment {
                 selectItem(position);
             }
         });
+
+        List<Map<String, Object>> listItem = new ArrayList<Map<String, Object>>();
+        Map<String, Object> map1 = new HashMap<String, Object>();
+        map1.put("PIC", R.drawable.ic_navigation_drawer);
+        map1.put("TITLE", getString(R.string.title_section1));
+        listItem.add(map1);
+        Map<String, Object> map2 = new HashMap<String, Object>();
+        map2.put("PIC", R.drawable.abc_ic_search_api_holo_light);
+        map2.put("TITLE", getString(R.string.title_section2));
+        listItem.add(map2);
+        Map<String, Object> map3 = new HashMap<String, Object>();
+        map3.put("PIC", R.drawable.ic_action_settings);
+        map3.put("TITLE", getString(R.string.title_section3));
+        listItem.add(map3);
+        SimpleAdapter adapter = new SimpleAdapter(getActionBar().getThemedContext(), listItem,
+                R.layout.simple_list_item, new String[]{"PIC","TITLE"}, new int[]{R.id.listitem_pic, R.id.item_title} );
+        mDrawerListView.setAdapter(adapter);
+        /*
         mDrawerListView.setAdapter(new ArrayAdapter<String>(
                 getActionBar().getThemedContext(),
                 android.R.layout.simple_list_item_activated_1,
@@ -107,6 +129,7 @@ public class NavigationDrawerFragment extends Fragment {
                         getString(R.string.title_section2),
                         getString(R.string.title_section3),
                 }));
+        */
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
         return mDrawerListView;
     }

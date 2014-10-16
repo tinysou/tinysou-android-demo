@@ -69,6 +69,7 @@ public class MyActivity extends Activity
                 break;
             case 3:
                 mTitle = getString(R.string.title_section3);
+                startActivity(new Intent(this, settingActivity.class));
                 break;
         }
     }

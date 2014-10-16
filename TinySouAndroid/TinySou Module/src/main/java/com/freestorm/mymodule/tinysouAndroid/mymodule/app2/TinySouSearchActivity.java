@@ -30,6 +30,7 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -51,6 +52,7 @@ public class TinySouSearchActivity extends Activity {
     protected String search_content = "";//默认为空
     protected int current_page = 0;//当前显示页数
     protected int max_page = 0;//最大页数
+    protected boolean isAutoCom = true;//是否开启自动补全，默认开启
     protected List<String> UrlList = new ArrayList<String>();//存储搜索结果url链接信息
     protected int position;//用于记忆和恢复listView滚动位置
     protected int lvChildTop;//用于记忆和恢复listView滚动位置
@@ -60,7 +62,6 @@ public class TinySouSearchActivity extends Activity {
     private List<Map<String, String>> SearchDisplay = new ArrayList<Map<String, String>>();
     private SearchThread searchThread = new SearchThread(0);//搜索线程
     private AutoCompleteThread autoCompleteThread = new AutoCompleteThread();//自动补全线程
-
 
     /*
     1. 获取engine_token
@@ -160,11 +161,15 @@ public class TinySouSearchActivity extends Activity {
             SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
                 //输入框文字改变
                 public boolean onQueryTextChange(String newText) {
-                    // this is your adapter that will be filtered
-                    current_page = 0;//重新刷新，当前页面归零
-                    search_content = newText;
-                    autoComplete(newText);
-                    return true;
+                    if(isAutoCom) {
+                        // this is your adapter that will be filtered
+                        current_page = 0;//重新刷新，当前页面归零
+                        search_content = newText;
+                        autoComplete(newText);
+                        return true;
+                    } else{
+                        return true;
+                    }
                 }
 
                 //提交搜索请求
