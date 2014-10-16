@@ -44,8 +44,6 @@ public class TinySouSearchActivityTest extends ActivityUnitTestCase<TinySouSearc
         assertEquals("http://api.tinysou.com/v1/public/search", httpHelp.getUrl());
     }
 
-
-
     public void testConnectedTimeout() {
         httpHelp.setConnectedTimeout(1000);
         assertEquals(1000, httpHelp.getConnectedTimeout());
@@ -67,12 +65,26 @@ public class TinySouSearchActivityTest extends ActivityUnitTestCase<TinySouSearc
         assertEquals(httpHelp.getFirstHeader("Content-Type").getValue(), "application/json");
     }
 
-    /*
     public void testAllHeader(){
         httpHelp.addHeader("Content-Type", "application/json");
-        //assertEquals(1, httpHelp.getAllHeader().length);
-        //assertEquals(httpHelp.getAllHeader()[0].getValue(), "application/json");
+        assertEquals(1, httpHelp.getAllHeader().length);
+        assertEquals(httpHelp.getAllHeader()[0].getValue(), "application/json");
     }
-    */
+
+    public void testRequestType(){
+        httpHelp.setRequestType("get");
+        assertEquals("GET", httpHelp.getRequestType());
+        assertTrue(httpHelp.isGet());
+        httpHelp.setRequestType("post");
+        assertEquals("POST", httpHelp.getRequestType());
+        assertTrue(httpHelp.isPost());
+        httpHelp.setRequestType("PUt");
+        assertEquals("PUT", httpHelp.getRequestType());
+        assertTrue(httpHelp.isPut());
+        httpHelp.setRequestType("DELETE");
+        assertEquals("DELETE", httpHelp.getRequestType());
+        assertTrue(httpHelp.isDelete());
+    }
+
 
 }

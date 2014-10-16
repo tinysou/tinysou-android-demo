@@ -36,7 +36,7 @@ public class HttpHelp {
     //当前请求的url
     protected String url = "";
     //HTTP请求类型
-    protected String requestType = HTTP_GET;
+    protected String requestType = HTTP_POST;
     //连接请求的超时时间
     protected int connectionTimeout = 5000;
     //读取远程数据的超时时间
@@ -112,6 +112,22 @@ public class HttpHelp {
     //获取 获取内容的编码格式
     public String getCharset() {
         return this.charset;
+    }
+
+    // 设置http请求类型
+    public void setRequestType(String type){
+        type = type.toLowerCase();
+        if (type.equals("get")) {
+            this.requestType = HTTP_GET;
+        } else if (type.equals("post")) {
+            this.requestType = HTTP_POST;
+        } else if (type.equals("put")) {
+            this.requestType = HTTP_PUT;
+        } else if (type.equals("delete")) {
+            this.requestType = HTTP_DELETE;
+        } else {
+            return;
+        }
     }
 
     //获取当前http请求类型
