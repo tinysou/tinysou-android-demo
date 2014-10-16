@@ -1,14 +1,10 @@
 package Help;
 
-import org.apache.http.client.ClientProtocolException;
-import org.apache.http.conn.ConnectTimeoutException;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONStringer;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.SocketTimeoutException;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
