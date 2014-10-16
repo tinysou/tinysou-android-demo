@@ -4,9 +4,12 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.SearchManager;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -77,6 +80,9 @@ public class TinySouSearchActivity extends Activity {
         //setContentView(R.layout.activity_main);
         //System.out.println("111111");
         //handleIntent(getIntent());
+        if(!isConnected(getApplicationContext())){
+            setNetworkMethod(TinySouSearchActivity.this);
+        }
         setContentView(R.layout.activity_tiny_sou_search);
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         //监听下拉刷新
@@ -397,5 +403,33 @@ public class TinySouSearchActivity extends Activity {
         }else{
             return false;
         }
+    }
+
+    /*
+     * 判断网络连接是否已开
+     *true 已打开  false 未打开
+     * */
+    public static boolean isConnected(Context context){
+        boolean bisConnFlag=false;
+        ConnectivityManager conManager = (ConnectivityManager)context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo network = conManager.getActiveNetworkInfo();
+        if(network!=null){
+            bisConnFlag=conManager.getActiveNetworkInfo().isAvailable();
+        }
+        return bisConnFlag;
+    }
+
+    /**
+    * 如何网络没有打开，提示打开网络设置界面
+    **/
+    public void setNetworkMethod(final Context context){
+        new AlertDialog.Builder(this).setTitle("网络设置提示").setMessage("网络连接不可用,是否进行设置?")
+            .setPositiveButton("设置", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    Intent intent = new Intent(android.provider.Settings.ACTION_WIRELESS_SETTINGS);
+                    context.startActivity(intent);
+                }
+            }).setNegativeButton("取消", null).show();
     }
 }
