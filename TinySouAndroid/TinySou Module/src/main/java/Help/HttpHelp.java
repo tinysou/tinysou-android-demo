@@ -45,8 +45,13 @@ public class HttpHelp {
     protected int statusCode = -1;
     //当前链接的字符编码
     protected String charset = HTTP.UTF_8;
-    // HTTP GET 请求管理器
-    protected HttpRequestBase httpRequest = null;
+    // HTTP 请求管理器
+    protected HttpRequestBase httpRequest = new HttpRequestBase() {
+        @Override
+        public String getMethod() {
+            return null;
+        }
+    };
     //HTTP 请求的配置参数
     protected HttpParams httpParameters = null;
     // HTTP 请求响应

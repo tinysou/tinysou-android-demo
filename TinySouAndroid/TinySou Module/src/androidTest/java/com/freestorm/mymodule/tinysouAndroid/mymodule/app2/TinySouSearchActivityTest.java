@@ -61,16 +61,18 @@ public class TinySouSearchActivityTest extends ActivityUnitTestCase<TinySouSearc
         assertEquals(HTTP.UTF_8, httpHelp.getCharset());
     }
 
-    /*
+
     public void testFirstHeader() {
         httpHelp.addHeader("Content-Type", "application/json");
         assertEquals(httpHelp.getFirstHeader("Content-Type").getValue(), "application/json");
     }
-    */
 
+    /*
     public void testAllHeader(){
         httpHelp.addHeader("Content-Type", "application/json");
         //assertEquals(1, httpHelp.getAllHeader().length);
         //assertEquals(httpHelp.getAllHeader()[0].getValue(), "application/json");
     }
+    */
+
 }
