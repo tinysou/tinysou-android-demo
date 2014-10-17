@@ -9,5 +9,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="action_example">示例按钮</string>
     <string name="action_settings">设置</string>
+    <string name="title_activity_setting">设置</string>
+    <string name="setting1">开启自动补全</string>
 
 </resources>
