@@ -1,3 +1,2 @@
 include ':app', ':TinySou Module'
 
-include ':swipeRefreshAndload'
