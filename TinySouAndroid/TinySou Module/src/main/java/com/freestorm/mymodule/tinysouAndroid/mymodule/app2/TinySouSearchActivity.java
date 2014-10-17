@@ -30,7 +30,6 @@ import android.widget.Toast;
 import com.alibaba.fastjson.JSON;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -48,7 +47,7 @@ import Help.TinySouClient;
 public class TinySouSearchActivity extends Activity {
 
     protected ApplicationInfo appInfo = null;//获取当前应用
-    protected String engine_token = null;//微搜索engine_token
+    protected String engine_key = null;//微搜索engine_token
     protected String search_content = "";//默认为空
     protected int current_page = 0;//当前显示页数
     protected int max_page = 0;//最大页数
@@ -71,10 +70,11 @@ public class TinySouSearchActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_tinysou_search);
         try {
             appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
             System.out.println(appInfo.metaData.getString("engine_token"));
-            this.engine_token = appInfo.metaData.getString("engine_token");
+            this.engine_key = appInfo.metaData.getString("engine_token");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -84,62 +84,8 @@ public class TinySouSearchActivity extends Activity {
         if (!isConnected(getApplicationContext())) {
             setNetworkMethod(TinySouSearchActivity.this);
         }
-        setContentView(R.layout.activity_tiny_sou_search);
-        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        //监听下拉刷新
-        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if ("".equals(search_content)) {
-                    swipeLayout.setRefreshing(false);//停止刷新
-                }
-                // TODO Auto-generated method stub
-                //System.out.println("刷新开始!!!"+search_content);
-                if (swipeLayout.isRefreshing() == true) {
-                    //System.out.println("刷新中!!!"+search_content);
-                    current_page = 0;//重新刷新，当前页面归零
-                    Search(search_content, 0);
-                }
-                //System.out.println("刷新结束!!!");
-            }
-        });
-        swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
-                android.R.color.holo_green_light, android.R.color.holo_orange_light,
-                android.R.color.holo_red_light);
-        lt1 = (ListView) findViewById(R.id.list1);
-        //监听上拉加载更多
-        lt1.setOnScrollListener(new AbsListView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(AbsListView view, int scrollState) {
-                // 当不滚动时
-                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
-                    //System.out.println("记录： "+"position "+lt1.getFirstVisiblePosition());
-                    // 判断是否滚动到底部
-                    if (view.getLastVisiblePosition() == view.getCount() - 1) {
-                        //加载更多功能的代码
-                        position = lt1.getFirstVisiblePosition();
-                        View v = lt1.getChildAt(0);
-                        lvChildTop = (v == null) ? 0 : v.getTop();
-                        //System.out.println("记录： "+"position "+position);
-                        //System.out.println("loadmore");
-                        if (searchThread.isRun()) {
-                            //System.out.println("还在加载中，请稍等...");
-                        } else {
-                            if (current_page + 1 < max_page) {
-                                current_page++;
-                                Search(search_content, current_page);
-                            } else {
-                                //System.out.println("当前页  " + current_page + "最大页 " + max_page + " 没有更多了！");
-                            }
-                        }
-                    }
-                }
-            }
-
-            @Override
-            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
-            }
-        });
+        setSwipeLayoutListener();
+        setListViewListener();
     }
 
     /*
@@ -196,6 +142,69 @@ public class TinySouSearchActivity extends Activity {
         } else {
             return false;
         }
+    }
+
+    //设置SwipeLayout监听
+    public void setSwipeLayoutListener(){
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+        //监听下拉刷新
+        swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if ("".equals(search_content)) {
+                    swipeLayout.setRefreshing(false);//停止刷新
+                }
+                // TODO Auto-generated method stub
+                //System.out.println("刷新开始!!!"+search_content);
+                if (swipeLayout.isRefreshing() == true) {
+                    //System.out.println("刷新中!!!"+search_content);
+                    current_page = 0;//重新刷新，当前页面归零
+                    Search(search_content, 0);
+                }
+                //System.out.println("刷新结束!!!");
+            }
+        });
+        swipeLayout.setColorSchemeResources(android.R.color.holo_blue_bright,
+                android.R.color.holo_green_light, android.R.color.holo_orange_light,
+                android.R.color.holo_red_light);
+    }
+
+    //设置ListView监听
+    public void setListViewListener(){
+        lt1 = (ListView) findViewById(R.id.list1);
+        //监听上拉加载更多
+        lt1.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                // 当不滚动时
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                    //System.out.println("记录： "+"position "+lt1.getFirstVisiblePosition());
+                    // 判断是否滚动到底部
+                    if (view.getLastVisiblePosition() == view.getCount() - 1) {
+                        //加载更多功能的代码
+                        position = lt1.getFirstVisiblePosition();
+                        View v = lt1.getChildAt(0);
+                        lvChildTop = (v == null) ? 0 : v.getTop();
+                        //System.out.println("记录： "+"position "+position);
+                        //System.out.println("loadmore");
+                        if (searchThread.isRun()) {
+                            //System.out.println("还在加载中，请稍等...");
+                        } else {
+                            if (current_page + 1 < max_page) {
+                                current_page++;
+                                Search(search_content, current_page);
+                            } else {
+                                //System.out.println("当前页  " + current_page + "最大页 " + max_page + " 没有更多了！");
+                            }
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            }
+        });
     }
 
     /*
@@ -367,7 +376,7 @@ public class TinySouSearchActivity extends Activity {
         @Override
         public void run() {
             isRun = true;
-            TinySouClient client = new TinySouClient(engine_token);
+            TinySouClient client = new TinySouClient(engine_key);
             client.setPage(searchPage);
             String result = client.Search(search_content);
             this.isError = client.isError();
@@ -402,7 +411,7 @@ public class TinySouSearchActivity extends Activity {
         @Override
         public void run() {
             isRun = true;
-            TinySouClient client = new TinySouClient(engine_token);
+            TinySouClient client = new TinySouClient(engine_key);
             client.setPage(searchPage);
             String result = client.AutoSearch(search_content);
             this.isError = client.isError();
