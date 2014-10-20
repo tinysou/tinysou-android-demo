@@ -23,7 +23,7 @@ import java.io.IOException;
 import java.net.SocketTimeoutException;
 
 /**
- * Created by freestorm on 14-9-22.
+ * Created by tinysou on 14-9-22.
  * Author:Yeming Wang
  * Data: 2014.10.11
  */

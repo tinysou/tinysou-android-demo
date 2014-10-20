@@ -1,7 +1,7 @@
 package Help.Json;
 
 /**
- * Created by freestorm on 14-10-13.
+ * Created by tinysou on 14-10-13.
  */
 public class Records {
     protected String collection = null;

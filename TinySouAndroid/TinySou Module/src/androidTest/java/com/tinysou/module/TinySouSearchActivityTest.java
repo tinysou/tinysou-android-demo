@@ -11,7 +11,7 @@ import org.apache.http.protocol.HTTP;
 import Help.HttpHelp;
 
 /**
- * Created by freestorm on 14-10-15.
+ * Created by tinysou on 14-10-15.
  */
 public class TinySouSearchActivityTest extends ActivityUnitTestCase<TinySouSearchActivity> {
 

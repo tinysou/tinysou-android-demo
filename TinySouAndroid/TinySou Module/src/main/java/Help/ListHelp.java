@@ -10,7 +10,7 @@ import java.util.regex.Pattern;
 import Help.Json.TinySouJsonHelp;
 
 /**
- * Created by freestorm on 14-9-24.
+ * Created by tinysou on 14-9-24.
  * Author:Yeming Wang
  * Data: 2014.10.11
  * 简介：处理微搜索结果，返回ListView格式

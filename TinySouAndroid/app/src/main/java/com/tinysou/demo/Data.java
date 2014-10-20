@@ -3,7 +3,7 @@ package com.tinysou.demo;
 import android.app.Application;
 
 /**
- * Created by freestorm on 14-10-17.
+ * Created by tinysou on 14-10-17.
  */
 public class Data extends Application{
     private boolean isAC = true;  //是否开启自动补全

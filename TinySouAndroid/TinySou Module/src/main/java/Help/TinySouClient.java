@@ -9,14 +9,14 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Created by freestorm on 14-9-22.
+ * Created by tinysou on 14-9-22.
  * Author:Yeming Wang
  * Data: 2014.10.11
  * 简介：建立微搜索主机，调用HttpHelp接口发送微搜索请求
  */
 public class TinySouClient {
     //权限验证
-    protected String engine_token = null;
+    protected String engine_key = null;
     //HTTP 请求方法 get 或 post
     protected String method = "post";
     //HTTP 微搜索public 搜索url````````
@@ -28,8 +28,8 @@ public class TinySouClient {
     //是否状态正常
     protected boolean isError = false;
 
-    public TinySouClient(String engine_token) {
-        this.engine_token = engine_token;
+    public TinySouClient(String engine_key) {
+        this.engine_key = engine_key;
     }
 
     public void setPage(int page) {
@@ -50,7 +50,7 @@ public class TinySouClient {
 
     //建立搜索Request
     public HttpHelp buildRequest(final String SearchContent) {
-        final String EngineToken = this.engine_token;
+        final String EngineToken = this.engine_key;
         final int page = this.page;
         HttpHelp post_request = new HttpHelp();
         post_request
@@ -97,7 +97,7 @@ public class TinySouClient {
 
     //建立自动补全Request
     public HttpHelp buildAsRequest(final String SearchContent) {
-        final String EngineToken = this.engine_token;
+        final String EngineToken = this.engine_key;
         HttpHelp post_request = new HttpHelp();
         post_request
                 .setCharset(HTTP.UTF_8)

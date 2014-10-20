@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by freestorm on 14-9-22.
+ * Created by tinysou on 14-9-22.
  * Author:Yeming Wang
  * Data: 2014.10.11
  * 简介：微搜索Json类，用于Gson处理,已废弃不再使用

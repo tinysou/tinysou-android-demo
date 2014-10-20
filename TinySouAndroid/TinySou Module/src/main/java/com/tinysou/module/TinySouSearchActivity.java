@@ -40,14 +40,14 @@ import Help.ListHelp;
 import Help.TinySouClient;
 
 /**
- * Created by freestorm on 14-9-22.
+ * Created by tinysou on 14-9-22.
  * Author:Yeming Wang
  * Data: 2014.10.11
  */
 public class TinySouSearchActivity extends Activity {
 
     protected ApplicationInfo appInfo = null;//获取当前应用
-    protected String engine_key = null;//微搜索engine_token
+    protected String engine_key = null;//微搜索engine_key
     protected String search_content = "";//默认为空
     protected int current_page = 0;//当前显示页数
     protected int max_page = 0;//最大页数
@@ -63,7 +63,7 @@ public class TinySouSearchActivity extends Activity {
     private AutoCompleteThread autoCompleteThread = new AutoCompleteThread();//自动补全线程
 
     /*
-    1. 获取engine_token
+    1. 获取engine_key
     2. 监听下拉刷新  google官方swipeLayout集成的下拉刷新彩虹条功能
     3. 监听上拉加载更多
      */
@@ -73,8 +73,8 @@ public class TinySouSearchActivity extends Activity {
         setContentView(R.layout.activity_tinysou_search);
         try {
             appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-            System.out.println(appInfo.metaData.getString("engine_token"));
-            this.engine_key = appInfo.metaData.getString("engine_token");
+            System.out.println(appInfo.metaData.getString("engine_key"));
+            this.engine_key = appInfo.metaData.getString("engine_key");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }

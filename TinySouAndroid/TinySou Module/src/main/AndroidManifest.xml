@@ -10,7 +10,7 @@
         android:icon="@drawable/tinysou_icon_green"
         android:label="@string/app_name">
         <meta-data
-            android:name="engine_token"
+            android:name="engine_key"
             android:value="@string/engine_key" />
         <activity
             android:theme="@android:style/Theme.Holo.Light"

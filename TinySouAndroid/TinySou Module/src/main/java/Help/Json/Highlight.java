@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by freestorm on 14-10-13.
+ * Created by tinysou on 14-10-13.
  */
 public class Highlight {
     protected List<String> body = new ArrayList<String>();
