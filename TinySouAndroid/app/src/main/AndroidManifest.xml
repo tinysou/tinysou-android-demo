@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.freestorm.tinysouandroid" >
+    package="com.example.freestorm.demo" >
 
     <application
-        android:name=".Data"
+        android:name="com.example.freestorm.demo.Data"
         android:allowBackup="true"
         android:icon="@drawable/tinysou_icon_green"
         android:label="@string/app_name"
         android:theme="@style/CustomActionBarTheme" >
         <activity
-            android:name=".MyActivity"
+            android:name="com.example.freestorm.demo.MyActivity"
             android:icon="@drawable/tinysou_ico_white"
             android:label="@string/app_name" >
             <intent-filter>
@@ -19,18 +19,18 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".searchActivity"
+            android:name="com.example.freestorm.demo.searchActivity"
             android:icon="@drawable/tinysou_ico_white"
             android:label="@string/title_activity_search"
-            android:parentActivityName=".MyActivity" >
+            android:parentActivityName="com.example.freestorm.demo.MyActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.freestorm.tinysouandroid.MyActivity" />
         </activity>
         <activity
-            android:name=".settingActivity"
+            android:name="com.example.freestorm.demo.settingActivity"
             android:label="@string/title_activity_setting"
-            android:parentActivityName=".MyActivity" >
+            android:parentActivityName="com.example.freestorm.demo.MyActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.example.freestorm.tinysouandroid.MyActivity" />
