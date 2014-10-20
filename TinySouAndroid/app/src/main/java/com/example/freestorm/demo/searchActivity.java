@@ -13,7 +13,6 @@ public class searchActivity extends TinySouSearchActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         app = (Data)getApplication();
-        System.out.println("search " + app.getAC());
         this.isAutoCom = app.getAC();
     }
 }

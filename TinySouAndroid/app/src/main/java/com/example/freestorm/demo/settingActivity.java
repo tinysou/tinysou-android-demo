@@ -70,11 +70,6 @@ public class settingActivity extends Activity {
                 for(int i=0; i < listView.getChildCount(); i++){
                     LinearLayout itemLayout = (LinearLayout)listView.getChildAt(i);
                     CheckBox cb = (CheckBox)itemLayout.findViewById(R.id.chech_box1);
-                    try {
-                        System.out.println("asdasdasdsadaa "+app.getAC());
-                    }catch (Exception e){
-                        e.printStackTrace();
-                    }
                     cbSetListener(cb);
                     if(app.getAC()){
                         cb.setChecked(true);
