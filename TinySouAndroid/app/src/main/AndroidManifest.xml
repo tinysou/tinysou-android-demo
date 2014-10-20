@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.freestorm.demo" >
+    package="com.tinysou.demo" >
 
     <application
-        android:name="com.example.freestorm.demo.Data"
+        android:name="com.tinysou.demo.Data"
         android:allowBackup="true"
         android:icon="@drawable/tinysou_icon_green"
         android:label="@string/app_name"
         android:theme="@style/CustomActionBarTheme" >
         <activity
-            android:name="com.example.freestorm.demo.MyActivity"
+            android:name="com.tinysou.demo.MyActivity"
             android:icon="@drawable/tinysou_ico_white"
             android:label="@string/app_name" >
             <intent-filter>
@@ -19,21 +19,21 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.freestorm.demo.searchActivity"
+            android:name="com.tinysou.demo.searchActivity"
             android:icon="@drawable/tinysou_ico_white"
             android:label="@string/title_activity_search"
-            android:parentActivityName="com.example.freestorm.demo.MyActivity" >
+            android:parentActivityName="com.tinysou.demo.MyActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.freestorm.tinysouandroid.MyActivity" />
+                android:value="com.tinysou.demo.MyActivity" />
         </activity>
         <activity
-            android:name="com.example.freestorm.demo.settingActivity"
+            android:name="com.tinysou.demo.settingActivity"
             android:label="@string/title_activity_setting"
-            android:parentActivityName="com.example.freestorm.demo.MyActivity" >
+            android:parentActivityName="com.tinysou.demo.MyActivity" >
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.example.freestorm.tinysouandroid.MyActivity" />
+                android:value="com.tinysou.demo.MyActivity" />
         </activity>
     </application>
 

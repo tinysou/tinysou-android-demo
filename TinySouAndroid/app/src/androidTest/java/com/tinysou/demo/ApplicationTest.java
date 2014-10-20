@@ -1,4 +1,4 @@
-package com.example.freestorm.demo;
+package com.tinysou.demo;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;
