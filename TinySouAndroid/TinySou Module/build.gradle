@@ -5,7 +5,7 @@ android {
     buildToolsVersion "20.0.0"
 
     defaultConfig {
-        applicationId "com.freestorm.mymodule.tinysouAndroid.mymodule.app2"
+        applicationId "com.freestorm.mymodule.tinysouAndroid.mymodule.module"
         minSdkVersion 14
         targetSdkVersion 19
         versionCode 1

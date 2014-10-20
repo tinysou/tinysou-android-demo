@@ -2,7 +2,7 @@ package com.tinysou.demo;
 
 import android.os.Bundle;
 
-import com.freestorm.mymodule.tinysouAndroid.mymodule.app2.TinySouSearchActivity;
+import com.freestorm.mymodule.tinysouAndroid.mymodule.module.TinySouSearchActivity;
 
 
 public class searchActivity extends TinySouSearchActivity {

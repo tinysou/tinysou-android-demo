@@ -1,4 +1,4 @@
-package com.freestorm.mymodule.tinysouAndroid.mymodule.app2;
+package com.freestorm.mymodule.tinysouAndroid.mymodule.module;
 
 import android.content.Intent;
 import android.test.ActivityUnitTestCase;
