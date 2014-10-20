@@ -1,4 +1,4 @@
-package com.freestorm.mymodule.tinysouAndroid.mymodule.module;
+package com.tinysou.module;
 
 import android.app.Activity;
 import android.app.AlertDialog;

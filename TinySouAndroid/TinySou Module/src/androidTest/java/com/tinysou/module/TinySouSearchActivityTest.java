@@ -1,8 +1,10 @@
-package com.freestorm.mymodule.tinysouAndroid.mymodule.module;
+package com.tinysou.module;
 
 import android.content.Intent;
 import android.test.ActivityUnitTestCase;
 import android.test.suitebuilder.annotation.MediumTest;
+
+import com.tinysou.module.TinySouSearchActivity;
 
 import org.apache.http.protocol.HTTP;
 
