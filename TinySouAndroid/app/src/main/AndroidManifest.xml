@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.tinysou.demo" >
+
+    <application
+        android:name="com.tinysou.demo.Data"
+        android:allowBackup="true"
+        android:icon="@drawable/tinysou_icon_green"
+        android:label="@string/app_name"
+        android:theme="@style/CustomActionBarTheme" >
+        <activity
+            android:name="com.tinysou.demo.MyActivity"
+            android:icon="@drawable/tinysou_ico_white"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.tinysou.demo.searchActivity"
+            android:icon="@drawable/tinysou_ico_white"
+            android:label="@string/title_activity_search"
+            android:parentActivityName="com.tinysou.demo.MyActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tinysou.demo.MyActivity" />
+        </activity>
+        <activity
+            android:name="com.tinysou.demo.settingActivity"
+            android:label="@string/title_activity_setting"
+            android:parentActivityName="com.tinysou.demo.MyActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.tinysou.demo.MyActivity" />
+        </activity>
+    </application>
+
+</manifest>
