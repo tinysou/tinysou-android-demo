@@ -23,4 +23,4 @@ Demo for Tinysou Android Library
 4. 设置点击事件，启动搜索Activity
 
 ## 显示效果
-![Image text](https://github.com/wangyeming/tinysou-android-sdk-demo/blob/master/ReadmePic/%E4%BB%8B%E7%BB%8D%E5%9B%BE%E7%89%874.png)
+![Image text](https://github.com/wangyeming/tinysou-android-demo/blob/master/ReadmePic/tinysou-android-gif.gif)
