@@ -1,10 +1,16 @@
 package Help;
 
+import org.apache.http.HttpEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.protocol.HTTP;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.json.JSONStringer;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,6 +33,10 @@ public class TinySouClient {
     protected int page = 0;
     //是否状态正常
     protected boolean isError = false;
+    //搜索请求参数
+    protected JSONObject search_params = new JSONObject();
+    //自动补全参数
+    protected JSONObject ac_params = new JSONObject();
 
     public TinySouClient(String engine_key) {
         this.engine_key = engine_key;
@@ -48,6 +58,22 @@ public class TinySouClient {
         return this.isError;
     }
 
+    public JSONObject getSearchParams(){
+        return search_params;
+    }
+
+    public JSONObject getAcParams(){
+        return ac_params;
+    }
+
+    public void setSearchParams(JSONObject search_params){
+        this.search_params = search_params;
+    }
+
+    public void setAcParams(JSONObject ac_params){
+        this.ac_params = ac_params;
+    }
+
     //建立搜索Request
     public HttpHelp buildRequest(final String SearchContent) {
         final String EngineToken = this.engine_key;
@@ -64,18 +90,18 @@ public class TinySouClient {
             public void onRequest(HttpHelp request) throws Exception {
                 // 设置发送请求的 header 信息
                 request.addHeader("Content-Type", "application/json");
-                System.out.println(request.getFirstHeader("Content-Type").getValue());
                 // 配置要 POST 的数据
-                JSONStringer search_content = new JSONStringer().object()
-                        .key("q").value(SearchContent);
-                System.out.print("SearchContent" + SearchContent);
-                search_content.key("c").value("page");
-                search_content.key("engine_key").value(EngineToken);
-                search_content.key("per_page").value("10");
-                search_content.key("page").value(page);
-                search_content.endObject();
-                String body = search_content.toString();
-                System.out.println(body);
+                if(search_params.length() == 0){
+                    search_params.accumulate("c", "page");
+                    search_params.accumulate("q",SearchContent);
+                    search_params.accumulate("engine_key",EngineToken );
+                    search_params.accumulate("per_page", 10);
+                    search_params.accumulate("page", page);
+
+                }
+                String body = search_params.toString();
+                System.out.println("body "+body);
+                //String search_params = " {\"per_page\":10,\"engine_key\":\"0b732cc0ea3c11874190\",\"page\":0,\"c\":\"page\",\"q\":\"搜索\"}";
                 StringEntity entity = new StringEntity(body, HTTP.UTF_8);
                 request.buildPostEntity(entity);
             }
@@ -105,25 +131,25 @@ public class TinySouClient {
                 .setSoTimeout(10000);
         post_request.setOnHttpRequestListener(new HttpHelp.OnHttpRequestListener() {
             private String CHARSET = HTTP.UTF_8;
-
             @Override
             public void onRequest(HttpHelp request) throws Exception {
-                String fetch_fields = "['title', 'sections', 'url','updated_at']";
                 // 设置发送请求的 header 信息
                 request.addHeader("Content-Type", "application/json");
                 // 配置要 POST 的数据
-                JSONStringer search_content = new JSONStringer().object()
-                        .key("q").value(SearchContent);
-                search_content.key("c").value("page");
-                search_content.key("engine_key").value(EngineToken);
-                search_content.key("fetch_fields").value(fetch_fields);
-                search_content.key("per_page").value("10");
-                search_content.endObject();
-                String body = search_content.toString();
-                Pattern p = Pattern.compile("\"\\['title', 'sections', 'url','updated_at']\"");
-                Matcher m = p.matcher(body);
-                System.out.println(body);
-                body = m.replaceAll("\\[\"title\", \"sections\", \"url\",\"updated_at\"\\]");
+                if(ac_params.length() == 0) {
+                    JSONArray fetch_field = new JSONArray();
+                    fetch_field.put("title");
+                    fetch_field.put("sections");
+                    fetch_field.put("url");
+                    fetch_field.put("updated_at");
+                    String fetch_field_s = fetch_field.toString();
+                    ac_params.accumulate("c", "page");
+                    ac_params.accumulate("q", SearchContent);
+                    ac_params.accumulate("engine_key", EngineToken);
+                    ac_params.accumulate("fetch_fields", fetch_field);
+                    ac_params.accumulate("per_page", "10");
+                }
+                String body = ac_params.toString();
                 System.out.println(body);
                 StringEntity entity = new StringEntity(body, HTTP.UTF_8);
                 request.buildPostEntity(entity);
