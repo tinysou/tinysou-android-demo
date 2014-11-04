@@ -1,18 +1,11 @@
 package Help;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONObject;
-import org.json.JSONStringer;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by tinysou on 14-9-22.
