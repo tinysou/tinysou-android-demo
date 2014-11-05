@@ -17,10 +17,10 @@ public class TinySouClient {
     //编码格式
     public final String CHARSET = HTTP.UTF_8;
     //权限验证
-    protected String engineKey = null;
+    protected String engineKey = new String();
     //HTTP 请求方法 get 或 post
     protected String method = "post";
-    //HTTP 微搜索public 搜索url````````
+    //HTTP 微搜索public 搜索url
     public final String url = "http://api.tinysou.com/v1/public/search";
     //HTTP 微搜索public 自动补全url
     public final String urlAc = "http://api.tinysou.com/v1/public/autocomplete";

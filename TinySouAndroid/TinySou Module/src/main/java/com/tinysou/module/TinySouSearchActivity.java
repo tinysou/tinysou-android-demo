@@ -43,6 +43,7 @@ import Help.TinySouClient;
  * Created by tinysou on 14-9-22.
  * Author:Yeming Wang
  * Data: 2014.10.11
+ * 搜索页面，实现搜索，自动补全，下拉刷新，上拉加载更多等功能
  */
 public class TinySouSearchActivity extends Activity {
 
@@ -256,14 +257,6 @@ public class TinySouSearchActivity extends Activity {
         }
     };
 
-    //设置listView adapter
-    private void setContentAdapter(List<Map<String, String>> searchList){
-        searchDisplay.addAll(searchList);
-        SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, searchDisplay,
-                R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
-        lt1.setAdapter(adapter);
-    }
-
     //处理自动补全
     private Handler handler2 = new Handler() {
         @Override
@@ -308,6 +301,14 @@ public class TinySouSearchActivity extends Activity {
             autoCompleteThread.setStopState();
         }
     };
+
+    //设置listView adapter
+    private void setContentAdapter(List<Map<String, String>> searchList){
+        searchDisplay.addAll(searchList);
+        SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, searchDisplay,
+                R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
+        lt1.setAdapter(adapter);
+    }
 
     public void Search(String query, int page) {
         if (!isConnected(getApplicationContext())) {
