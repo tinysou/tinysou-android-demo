@@ -39,7 +39,7 @@ import Help.Json.TinySouJsonHelp;
 import Help.ListHelp;
 import Help.TinySouClient;
 
-/**
+/**y
  * Created by tinysou on 14-9-22.
  * Author:Yeming Wang
  * Data: 2014.10.11
@@ -74,7 +74,7 @@ public class TinySouSearchActivity extends Activity {
         setContentView(R.layout.activity_tinysou_search);
         try {
             appInfo = this.getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
-            System.out.println(appInfo.metaData.getString("engine_key"));
+            //System.out.println(appInfo.metaData.getString("engine_key"));
             this.engineKey = appInfo.metaData.getString("engine_key");
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
