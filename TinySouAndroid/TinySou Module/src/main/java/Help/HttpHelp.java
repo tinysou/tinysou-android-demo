@@ -76,7 +76,7 @@ public class HttpHelp {
     }
 
     //获取当前Url
-    public String getUrl(){
+    public String getUrl() {
         return this.url;
     }
 
@@ -114,7 +114,7 @@ public class HttpHelp {
     }
 
     // 设置http请求类型
-    public void setRequestType(String type){
+    public void setRequestType(String type) {
         type = type.toLowerCase();
         if (type.equals("get")) {
             this.requestType = HTTP_GET;
@@ -196,12 +196,12 @@ public class HttpHelp {
     }
 
     //获取header
-    public Header[] getAllHeader(){
+    public Header[] getAllHeader() {
         return httpRequest.getAllHeaders();
     }
 
     //获取First header
-    public Header getFirstHeader(String name){
+    public Header getFirstHeader(String name) {
         return httpRequest.getFirstHeader(name);
     }
 
@@ -248,7 +248,7 @@ public class HttpHelp {
             System.out.println("<-------ConnectTimeoutException------->");
             e.printStackTrace();
             System.out.println("<-------Exception end------->");
-        } catch (SocketTimeoutException e){
+        } catch (SocketTimeoutException e) {
             exceptionMessage = "socket连接超时：" + e.getMessage();
             System.out.println("<-------SocketTimeoutException------->");
             e.printStackTrace();

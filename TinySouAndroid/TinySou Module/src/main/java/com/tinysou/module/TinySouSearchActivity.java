@@ -39,7 +39,8 @@ import Help.Json.TinySouJsonHelp;
 import Help.ListHelp;
 import Help.TinySouClient;
 
-/**y
+/**
+ * y
  * Created by tinysou on 14-9-22.
  * Author:Yeming Wang
  * Data: 2014.10.11
@@ -105,13 +106,13 @@ public class TinySouSearchActivity extends Activity {
             SearchView.OnQueryTextListener queryTextListener = new SearchView.OnQueryTextListener() {
                 //输入框文字改变
                 public boolean onQueryTextChange(String newText) {
-                    if(isAutoCom) {
+                    if (isAutoCom) {
                         // this is your adapter that will be filtered
                         currentPage = 0;//重新刷新，当前页面归零
                         searchContent = newText;
                         autoComplete(newText);
                         return true;
-                    } else{
+                    } else {
                         return true;
                     }
                 }
@@ -143,7 +144,7 @@ public class TinySouSearchActivity extends Activity {
     }
 
     //设置SwipeLayout监听
-    public void setSwipeLayoutListener(){
+    public void setSwipeLayoutListener() {
         swipeLayout = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         //监听下拉刷新
         swipeLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -168,7 +169,7 @@ public class TinySouSearchActivity extends Activity {
     }
 
     //设置ListView监听
-    public void setListViewListener(){
+    public void setListViewListener() {
         lt1 = (ListView) findViewById(R.id.list1);
         //监听上拉加载更多
         lt1.setOnScrollListener(new AbsListView.OnScrollListener() {
@@ -303,7 +304,7 @@ public class TinySouSearchActivity extends Activity {
     };
 
     //设置listView adapter
-    private void setContentAdapter(List<Map<String, String>> searchList){
+    private void setContentAdapter(List<Map<String, String>> searchList) {
         searchDisplay.addAll(searchList);
         SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, searchDisplay,
                 R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});

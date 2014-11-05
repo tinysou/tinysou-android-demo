@@ -49,23 +49,23 @@ public class TinySouClient {
         return this.urlAc;
     }
 
-    public boolean isError(){
+    public boolean isError() {
         return this.isError;
     }
 
-    public JSONObject getSearchParams(){
+    public JSONObject getSearchParams() {
         return searchParams;
     }
 
-    public JSONObject getAcParams(){
+    public JSONObject getAcParams() {
         return acParams;
     }
 
-    public void setSearchParams(JSONObject searchParams){
+    public void setSearchParams(JSONObject searchParams) {
         this.searchParams = searchParams;
     }
 
-    public void setAcParams(JSONObject acParams){
+    public void setAcParams(JSONObject acParams) {
         this.acParams = acParams;
     }
 
@@ -84,7 +84,7 @@ public class TinySouClient {
                 // 设置发送请求的 header 信息
                 request.addHeader("Content-Type", "application/json");
                 // 配置要 POST 的数据
-                if(searchParams.length() == 0){
+                if (searchParams.length() == 0) {
                     searchParams.accumulate("c", "page");
                     searchParams.accumulate("q", SEARCH_CONTENT);
                     searchParams.accumulate("engine_key", ENGINE_TOKEN);
@@ -126,7 +126,7 @@ public class TinySouClient {
                 // 设置发送请求的 header 信息
                 request.addHeader("Content-Type", "application/json");
                 // 配置要 POST 的数据
-                if(acParams.length() == 0) {
+                if (acParams.length() == 0) {
                     JSONArray fetchField = new JSONArray();
                     fetchField.put("title");
                     fetchField.put("sections");

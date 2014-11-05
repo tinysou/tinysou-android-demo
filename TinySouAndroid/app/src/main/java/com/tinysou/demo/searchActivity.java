@@ -12,7 +12,7 @@ public class searchActivity extends TinySouSearchActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        app = (Data)getApplication();
+        app = (Data) getApplication();
         this.isAutoCom = app.getAC();
     }
 }

@@ -33,7 +33,7 @@ public class settingActivity extends Activity {
         setContentView(R.layout.activity_setting);
         cb1 = (CheckBox) findViewById(R.id.chech_box1);
         intent = new Intent(this, settingActivity.class);
-        app = (Data)getApplication();
+        app = (Data) getApplication();
         //app.onCreate();
         listViewInit();
         //listViewSetListener();
@@ -55,7 +55,7 @@ public class settingActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void listViewInit(){
+    public void listViewInit() {
         listView = (ListView) findViewById(R.id.listview1);
         List<Map<String, Object>> listItem = new ArrayList<Map<String, Object>>();
         Map<String, Object> map1 = new HashMap<String, Object>();
@@ -63,17 +63,17 @@ public class settingActivity extends Activity {
         map1.put("CHECKBOX", cb1);
         listItem.add(map1);
         SimpleAdapter adapter = new SimpleAdapter(this, listItem,
-                R.layout.check_list, new String[]{"TITLE","CHECKBOX"}, new int[]{R.id.item_title, R.id.chech_box1} );
+                R.layout.check_list, new String[]{"TITLE", "CHECKBOX"}, new int[]{R.id.item_title, R.id.chech_box1});
         listView.setAdapter(adapter);
         listView.post(new Runnable() {
             public void run() {
-                for(int i=0; i < listView.getChildCount(); i++){
-                    LinearLayout itemLayout = (LinearLayout)listView.getChildAt(i);
-                    CheckBox cb = (CheckBox)itemLayout.findViewById(R.id.chech_box1);
+                for (int i = 0; i < listView.getChildCount(); i++) {
+                    LinearLayout itemLayout = (LinearLayout) listView.getChildAt(i);
+                    CheckBox cb = (CheckBox) itemLayout.findViewById(R.id.chech_box1);
                     cbSetListener(cb);
-                    if(app.getAC()){
+                    if (app.getAC()) {
                         cb.setChecked(true);
-                    }else{
+                    } else {
                         cb.setChecked(false);
                     }
                 }
@@ -81,17 +81,17 @@ public class settingActivity extends Activity {
         });
     }
 
-    public void listViewSetListener(){
+    public void listViewSetListener() {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("id "+id);
-                System.out.println("position "+position);
+                System.out.println("id " + id);
+                System.out.println("position " + position);
             }
         });
     }
 
-    public void cbSetListener(final CheckBox cb){
+    public void cbSetListener(final CheckBox cb) {
         cb.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

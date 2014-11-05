@@ -5,14 +5,14 @@ import android.app.Application;
 /**
  * Created by tinysou on 14-10-17.
  */
-public class Data extends Application{
+public class Data extends Application {
     private boolean isAC = true;  //是否开启自动补全
 
-    public void setAC(boolean isAC){
+    public void setAC(boolean isAC) {
         this.isAC = isAC;
     }
 
-    public boolean getAC(){
+    public boolean getAC() {
         return isAC;
     }
 
