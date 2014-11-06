@@ -2,81 +2,98 @@ package Help;
 
 import org.apache.http.entity.StringEntity;
 import org.apache.http.protocol.HTTP;
-import org.json.JSONStringer;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 /**
  * Created by tinysou on 14-9-22.
  * Author:Yeming Wang
  * Data: 2014.10.11
- * 简介：建立微搜索主机，调用HttpHelp接口发送微搜索请求
+ * 简介：建立微搜索客户端，调用 HttpHelp 发送搜索请求
  */
 public class TinySouClient {
+    //编码格式
+    public final String CHARSET = HTTP.UTF_8;
     //权限验证
-    protected String engine_key = null;
+    protected String engineKey = new String();
     //HTTP 请求方法 get 或 post
     protected String method = "post";
-    //HTTP 微搜索public 搜索url````````
-    protected String url = "http://api.tinysou.com/v1/public/search";
+    //HTTP 微搜索public 搜索url
+    public final String url = "http://api.tinysou.com/v1/public/search";
     //HTTP 微搜索public 自动补全url
-    protected String url_as = "http://api.tinysou.com/v1/public/autocomplete";
+    public final String urlAc = "http://api.tinysou.com/v1/public/autocomplete";
     //显示的页数
     protected int page = 0;
     //是否状态正常
     protected boolean isError = false;
+    //搜索请求参数
+    protected JSONObject searchParams = new JSONObject();
+    //自动补全参数
+    protected JSONObject acParams = new JSONObject();
 
-    public TinySouClient(String engine_key) {
-        this.engine_key = engine_key;
+    public TinySouClient(String engineKey) {
+        this.engineKey = engineKey;
     }
 
     public void setPage(int page) {
         this.page = page;
     }
 
-    public String buildUrl(String SearchContent) {
+    public String getUrl() {
         return this.url;
     }
 
-    public String buildUrlAs(String SearchContent) {
-        return this.url_as;
+    public String getUrlAs() {
+        return this.urlAc;
     }
 
-    public boolean isError(){
+    public boolean isError() {
         return this.isError;
     }
 
+    public JSONObject getSearchParams() {
+        return searchParams;
+    }
+
+    public JSONObject getAcParams() {
+        return acParams;
+    }
+
+    public void setSearchParams(JSONObject searchParams) {
+        this.searchParams = searchParams;
+    }
+
+    public void setAcParams(JSONObject acParams) {
+        this.acParams = acParams;
+    }
+
     //建立搜索Request
-    public HttpHelp buildRequest(final String SearchContent) {
-        final String EngineToken = this.engine_key;
+    public HttpHelp buildRequest(final String SEARCH_CONTENT) {
+        final String ENGINE_TOKEN = this.engineKey;
         final int page = this.page;
-        HttpHelp post_request = new HttpHelp();
-        post_request
-                .setCharset(HTTP.UTF_8)
+        HttpHelp postRequest = new HttpHelp();
+        postRequest
+                .setCharset(CHARSET)
                 .setConnectedTimeout(5000)
                 .setSoTimeout(10000);
-        post_request.setOnHttpRequestListener(new HttpHelp.OnHttpRequestListener() {
-            private String CHARSET = HTTP.UTF_8;
-
+        postRequest.setOnHttpRequestListener(new HttpHelp.OnHttpRequestListener() {
             @Override
             public void onRequest(HttpHelp request) throws Exception {
                 // 设置发送请求的 header 信息
                 request.addHeader("Content-Type", "application/json");
-                System.out.println(request.getFirstHeader("Content-Type").getValue());
                 // 配置要 POST 的数据
-                JSONStringer search_content = new JSONStringer().object()
-                        .key("q").value(SearchContent);
-                System.out.print("SearchContent" + SearchContent);
-                search_content.key("c").value("page");
-                search_content.key("engine_key").value(EngineToken);
-                search_content.key("per_page").value("10");
-                search_content.key("page").value(page);
-                search_content.endObject();
-                String body = search_content.toString();
-                System.out.println(body);
-                StringEntity entity = new StringEntity(body, HTTP.UTF_8);
+                if (searchParams.length() == 0) {
+                    searchParams.accumulate("c", "page");
+                    searchParams.accumulate("q", SEARCH_CONTENT);
+                    searchParams.accumulate("engine_key", ENGINE_TOKEN);
+                    searchParams.accumulate("per_page", 10);
+                    searchParams.accumulate("page", page);
+                }
+                String body = searchParams.toString();
+                //String search_params = " {\"per_page\":10,\"engine_key\":\"0b732cc0ea3c11874190\",\"page\":0,\"c\":\"page\",\"q\":\"搜索\"}";
+                StringEntity entity = new StringEntity(body, CHARSET);
                 request.buildPostEntity(entity);
             }
 
@@ -91,41 +108,38 @@ public class TinySouClient {
                 return "POST请求失败：statusCode " + statusCode;
             }
         });
-        return post_request;
+        return postRequest;
         //}
     }
 
     //建立自动补全Request
-    public HttpHelp buildAsRequest(final String SearchContent) {
-        final String EngineToken = this.engine_key;
-        HttpHelp post_request = new HttpHelp();
-        post_request
-                .setCharset(HTTP.UTF_8)
+    public HttpHelp buildAsRequest(final String SEARCH_CONTENT) {
+        final String ENGINE_TOKEN = this.engineKey;
+        HttpHelp postRequest = new HttpHelp();
+        postRequest
+                .setCharset(CHARSET)
                 .setConnectedTimeout(5000)
                 .setSoTimeout(10000);
-        post_request.setOnHttpRequestListener(new HttpHelp.OnHttpRequestListener() {
-            private String CHARSET = HTTP.UTF_8;
-
+        postRequest.setOnHttpRequestListener(new HttpHelp.OnHttpRequestListener() {
             @Override
             public void onRequest(HttpHelp request) throws Exception {
-                String fetch_fields = "['title', 'sections', 'url','updated_at']";
                 // 设置发送请求的 header 信息
                 request.addHeader("Content-Type", "application/json");
                 // 配置要 POST 的数据
-                JSONStringer search_content = new JSONStringer().object()
-                        .key("q").value(SearchContent);
-                search_content.key("c").value("page");
-                search_content.key("engine_key").value(EngineToken);
-                search_content.key("fetch_fields").value(fetch_fields);
-                search_content.key("per_page").value("10");
-                search_content.endObject();
-                String body = search_content.toString();
-                Pattern p = Pattern.compile("\"\\['title', 'sections', 'url','updated_at']\"");
-                Matcher m = p.matcher(body);
-                System.out.println(body);
-                body = m.replaceAll("\\[\"title\", \"sections\", \"url\",\"updated_at\"\\]");
-                System.out.println(body);
-                StringEntity entity = new StringEntity(body, HTTP.UTF_8);
+                if (acParams.length() == 0) {
+                    JSONArray fetchField = new JSONArray();
+                    fetchField.put("title");
+                    fetchField.put("sections");
+                    fetchField.put("url");
+                    fetchField.put("updated_at");
+                    acParams.accumulate("c", "page");
+                    acParams.accumulate("q", SEARCH_CONTENT);
+                    acParams.accumulate("engine_key", ENGINE_TOKEN);
+                    acParams.accumulate("fetch_fields", fetchField);
+                    acParams.accumulate("per_page", "10");
+                }
+                String body = acParams.toString();
+                StringEntity entity = new StringEntity(body, CHARSET);
                 request.buildPostEntity(entity);
             }
 
@@ -140,19 +154,19 @@ public class TinySouClient {
                 return "POST请求失败：statusCode " + statusCode;
             }
         });
-        return post_request;
+        return postRequest;
     }
 
     //搜索
-    public String Search(String search_content) {
-        if ("".equals(search_content.trim())) {
+    public String Search(String searchContent) {
+        if ("".equals(searchContent.trim())) {
             return "";
         }
-        String SearchUrl = this.buildUrl(search_content);
-        HttpHelp request = this.buildRequest(search_content);
-        String content = null;
+        String searchUrl = this.getUrl();
+        HttpHelp request = this.buildRequest(searchContent);
+        String content;
         try {
-            content = request.post(SearchUrl);
+            content = request.post(searchUrl);
         } catch (IOException e) {
             content = "IO异常：" + e.getMessage();
             this.isError = true;
@@ -164,15 +178,15 @@ public class TinySouClient {
     }
 
     //自动补全
-    public String AutoSearch(String search_content) {
-        if ("".equals(search_content.trim())) {
+    public String AutoSearch(String searchContent) {
+        if ("".equals(searchContent.trim())) {
             return "";
         }
-        String SearchUrl = this.buildUrlAs(search_content);
-        HttpHelp request = this.buildAsRequest(search_content);
-        String content = null;
+        String searchUrl = this.getUrlAs();
+        HttpHelp request = this.buildAsRequest(searchContent);
+        String content;
         try {
-            content = request.post(SearchUrl);
+            content = request.post(searchUrl);
         } catch (IOException e) {
             content = "IO异常：" + e.getMessage();
             this.isError = true;

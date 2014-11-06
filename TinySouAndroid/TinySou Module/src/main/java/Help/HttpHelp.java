@@ -3,7 +3,6 @@ package Help;
 import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
@@ -34,7 +33,7 @@ public class HttpHelp {
     public final String HTTP_PUT = "PUT";
     public final String HTTP_DELETE = "DELETE";
     //当前请求的url
-    protected String url = "";
+    protected String url = new String();
     //HTTP请求类型
     protected String requestType = HTTP_POST;
     //连接请求的超时时间
@@ -77,7 +76,7 @@ public class HttpHelp {
     }
 
     //获取当前Url
-    public String getUrl(){
+    public String getUrl() {
         return this.url;
     }
 
@@ -115,7 +114,7 @@ public class HttpHelp {
     }
 
     // 设置http请求类型
-    public void setRequestType(String type){
+    public void setRequestType(String type) {
         type = type.toLowerCase();
         if (type.equals("get")) {
             this.requestType = HTTP_GET;
@@ -197,12 +196,12 @@ public class HttpHelp {
     }
 
     //获取header
-    public Header[] getAllHeader(){
+    public Header[] getAllHeader() {
         return httpRequest.getAllHeaders();
     }
 
     //获取First header
-    public Header getFirstHeader(String name){
+    public Header getFirstHeader(String name) {
         return httpRequest.getFirstHeader(name);
     }
 
@@ -212,7 +211,7 @@ public class HttpHelp {
         this.setUrl(url);
         this.httpRequest = new HttpGet(url);
         this.httpClientExecute();//执行客户端请求
-        return this.checkstatus();
+        return this.checkStatus();
     }
 
     //设置post请求的entity
@@ -226,7 +225,7 @@ public class HttpHelp {
         this.setUrl(url);
         this.httpRequest = new HttpPost(url);
         this.httpClientExecute();//执行客户端请求
-        return this.checkstatus();
+        return this.checkStatus();
     }
 
     //执行http请求
@@ -249,7 +248,7 @@ public class HttpHelp {
             System.out.println("<-------ConnectTimeoutException------->");
             e.printStackTrace();
             System.out.println("<-------Exception end------->");
-        } catch (SocketTimeoutException e){
+        } catch (SocketTimeoutException e) {
             exceptionMessage = "socket连接超时：" + e.getMessage();
             System.out.println("<-------SocketTimeoutException------->");
             e.printStackTrace();
@@ -284,7 +283,7 @@ public class HttpHelp {
     }
 
     //监听服务端响应事件并返回服务端内容
-    public String checkstatus() throws Exception {
+    public String checkStatus() throws Exception {
         OnHttpRequestListener listener = this.getOnHttpRequestListener();
         String content;
         if (this.statusCode == HttpStatus.SC_OK) {
