@@ -23,4 +23,11 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:support-v4:20.0.0'
     compile files('libs/fastjson-1.1.42.android.jar')
+    compile files('libs/lib/httpclient-4.3.5.jar')
+    compile files('libs/lib/httpclient-cache-4.3.5.jar')
+    compile files('libs/lib/httpcore-4.3.2.jar')
+    compile files('libs/lib/fluent-hc-4.3.5.jar')
+    compile files('libs/lib/httpmime-4.3.5.jar')
+    compile files('libs/lib/commons-codec-1.6.jar')
+    compile files('libs/lib/commons-logging-1.1.3.jar')
 }
