@@ -263,6 +263,7 @@ public class TinySouSearchActivity extends Activity {
         @Override
         public void handleMessage(android.os.Message msg) {
             String content = msg.obj.toString();
+            System.out.println(content);
             //如果输入内容为空
             if ("".equals(content)) {
                 List<Map<String, String>> searchDisplay = new ArrayList<Map<String, String>>();
@@ -289,6 +290,7 @@ public class TinySouSearchActivity extends Activity {
             List<String> UrlListNew = listHelp.getUrlList();
             urlList.addAll(UrlListNew);
             List<Map<String, String>> autoCompleteList = listHelp.getAutoCompleteList();
+            System.out.println(autoCompleteList.size());
             setContentAdapter(autoCompleteList);
             //设置Url链接
             lt1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -305,6 +307,7 @@ public class TinySouSearchActivity extends Activity {
 
     //设置listView adapter
     private void setContentAdapter(List<Map<String, String>> searchList) {
+        searchDisplay.clear();
         searchDisplay.addAll(searchList);
         SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, searchDisplay,
                 R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
