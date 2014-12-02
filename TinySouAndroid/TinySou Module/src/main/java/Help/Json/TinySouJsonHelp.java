@@ -10,34 +10,7 @@ import java.util.List;
  * 简介：微搜索Json类，用于Json处理
  */
 public class TinySouJsonHelp {
-    protected Info info;
-    protected List<Records> records = new ArrayList<Records>();
-    protected Errors errors;
-
-    public void TinySouJsonHelp() {
-    }
-
-    public void setInfo(Info info) {
-        this.info = info;
-    }
-
-    public Info getInfo() {
-        return info;
-    }
-
-    public void setRecords(List<Records> records) {
-        this.records = records;
-    }
-
-    public List<Records> getRecords() {
-        return records;
-    }
-
-    public void setErrors(Errors errors) {
-        this.errors = errors;
-    }
-
-    public Errors getErrors() {
-        return errors;
-    }
+    public Info info;
+    public List<Records> records = new ArrayList<Records>();
+    public Errors errors;
 }

@@ -26,7 +26,7 @@ public class TinySouClient {
     //HTTP 微搜索public 自动补全url
     public final String urlAc = "http://api.tinysou.com/v1/public/autocomplete";
     //显示的页数
-    protected int page = 0;
+    protected int page = 1;
     //是否状态正常
     protected boolean isError = false;
     //搜索请求参数

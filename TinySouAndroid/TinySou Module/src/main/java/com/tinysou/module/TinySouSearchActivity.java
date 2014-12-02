@@ -51,8 +51,8 @@ public class TinySouSearchActivity extends Activity {
     protected ApplicationInfo appInfo = new ApplicationInfo();//获取当前应用
     protected String engineKey = new String();//微搜索engine_key
     protected String searchContent = new String();//默认为空
-    protected int currentPage = 0;//当前显示页数
-    protected int maxPage = 0;//最大页数
+    protected int currentPage = 1;//当前显示页数
+    protected int maxPage = 1;//最大页数
     protected boolean isAutoCom = true;//是否开启自动补全，默认开启
     protected List<String> urlList = new ArrayList<String>();//存储搜索结果url链接信息
     protected int position;//用于记忆和恢复listView滚动位置
@@ -61,7 +61,7 @@ public class TinySouSearchActivity extends Activity {
     private SwipeRefreshLayout swipeLayout;
     //search显示内容
     private List<Map<String, String>> searchDisplay = new ArrayList<Map<String, String>>();
-    private searchThread searchThread = new searchThread(0);//搜索线程
+    private searchThread searchThread = new searchThread(1);//搜索线程
     private autoCompleteThread autoCompleteThread = new autoCompleteThread();//自动补全线程
 
     /*
@@ -108,7 +108,7 @@ public class TinySouSearchActivity extends Activity {
                 public boolean onQueryTextChange(String newText) {
                     if (isAutoCom) {
                         // this is your adapter that will be filtered
-                        currentPage = 0;//重新刷新，当前页面归零
+                        currentPage = 1;//重新刷新，当前页面归零
                         searchContent = newText;
                         autoComplete(newText);
                         return true;
@@ -121,8 +121,8 @@ public class TinySouSearchActivity extends Activity {
                 public boolean onQueryTextSubmit(String query) {
                     // this is your adapter that will be filtered
                     searchContent = query;
-                    Search(searchContent, 0);
-                    currentPage = 0;//重新搜索，当前页面归零
+                    Search(searchContent, 1);
+                    currentPage = 1;//重新搜索，当前页面归零
                     return true;
                 }
             };
@@ -157,8 +157,8 @@ public class TinySouSearchActivity extends Activity {
                 //System.out.println("刷新开始!!!"+search_content);
                 if (swipeLayout.isRefreshing() == true) {
                     //System.out.println("刷新中!!!"+search_content);
-                    currentPage = 0;//重新刷新，当前页面归零
-                    Search(searchContent, 0);
+                    currentPage = 1;//重新刷新，当前页面归零
+                    Search(searchContent, 1);
                 }
                 //System.out.println("刷新结束!!!");
             }
@@ -189,7 +189,7 @@ public class TinySouSearchActivity extends Activity {
                         if (searchThread.isRun()) {
                             //System.out.println("还在加载中，请稍等...");
                         } else {
-                            if (currentPage + 1 < maxPage) {
+                            if (currentPage < maxPage) {
                                 currentPage++;
                                 Search(searchContent, currentPage);
                             } else {
@@ -233,7 +233,7 @@ public class TinySouSearchActivity extends Activity {
             listHelp.setSearch(tinySouJsonHelp);
             maxPage = listHelp.getMaxPage();
             List<Map<String, String>> searchList = listHelp.getSearch();
-            if (currentPage == 0) {
+            if (currentPage == 1) {
                 urlList = new ArrayList<String>();
                 List<String> urlListNew = listHelp.getUrlList();
                 urlList.addAll(urlListNew);
@@ -263,7 +263,6 @@ public class TinySouSearchActivity extends Activity {
         @Override
         public void handleMessage(android.os.Message msg) {
             String content = msg.obj.toString();
-            System.out.println(content);
             //如果输入内容为空
             if ("".equals(content)) {
                 List<Map<String, String>> searchDisplay = new ArrayList<Map<String, String>>();
@@ -290,7 +289,6 @@ public class TinySouSearchActivity extends Activity {
             List<String> UrlListNew = listHelp.getUrlList();
             urlList.addAll(UrlListNew);
             List<Map<String, String>> autoCompleteList = listHelp.getAutoCompleteList();
-            System.out.println(autoCompleteList.size());
             setContentAdapter(autoCompleteList);
             //设置Url链接
             lt1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -307,7 +305,9 @@ public class TinySouSearchActivity extends Activity {
 
     //设置listView adapter
     private void setContentAdapter(List<Map<String, String>> searchList) {
-        searchDisplay.clear();
+        if(currentPage == 1) {
+            searchDisplay.clear();
+        }
         searchDisplay.addAll(searchList);
         SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, searchDisplay,
                 R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
@@ -337,7 +337,7 @@ public class TinySouSearchActivity extends Activity {
     //搜索线程
     class searchThread extends Thread {
         private boolean isRun = false;
-        private int searchPage = 0;
+        private int searchPage = 1;
         private boolean isError = false;
 
         public searchThread(int page) {
@@ -373,7 +373,7 @@ public class TinySouSearchActivity extends Activity {
     //自动补全线程
     class autoCompleteThread extends Thread {
         private boolean isRun = false;
-        private int searchPage = 0;
+        private int searchPage = 1;
         private boolean isError = false;
 
         public autoCompleteThread() {
