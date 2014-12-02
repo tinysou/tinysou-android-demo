@@ -234,14 +234,12 @@ public class TinySouSearchActivity extends Activity {
             maxPage = listHelp.getMaxPage();
             List<Map<String, String>> searchList = listHelp.getSearch();
             if (currentPage == 1) {
-                System.out.println("1111111");
                 urlList = new ArrayList<String>();
                 List<String> urlListNew = listHelp.getUrlList();
                 urlList.addAll(urlListNew);
                 setContentAdapter(searchList);
                 swipeLayout.setRefreshing(false);
             } else {
-                System.out.println("2222222");
                 List<String> urlListNew = listHelp.getUrlList();
                 urlList.addAll(urlListNew);
                 setContentAdapter(searchList);
@@ -265,7 +263,6 @@ public class TinySouSearchActivity extends Activity {
         @Override
         public void handleMessage(android.os.Message msg) {
             String content = msg.obj.toString();
-            System.out.println(content);
             //如果输入内容为空
             if ("".equals(content)) {
                 List<Map<String, String>> searchDisplay = new ArrayList<Map<String, String>>();
@@ -292,7 +289,6 @@ public class TinySouSearchActivity extends Activity {
             List<String> UrlListNew = listHelp.getUrlList();
             urlList.addAll(UrlListNew);
             List<Map<String, String>> autoCompleteList = listHelp.getAutoCompleteList();
-            System.out.println(autoCompleteList.size());
             setContentAdapter(autoCompleteList);
             //设置Url链接
             lt1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -313,7 +309,6 @@ public class TinySouSearchActivity extends Activity {
             searchDisplay.clear();
         }
         searchDisplay.addAll(searchList);
-        System.out.println("shdfkasd "+searchDisplay.size());
         SimpleAdapter adapter = new SimpleAdapter(TinySouSearchActivity.this, searchDisplay,
                 R.layout.list_item, new String[]{"title", "sections", "url_sp"}, new int[]{R.id.title, R.id.sections, R.id.url_sp});
         lt1.setAdapter(adapter);
@@ -358,7 +353,6 @@ public class TinySouSearchActivity extends Activity {
         public void run() {
             isRun = true;
             TinySouClient client = new TinySouClient(engineKey);
-            System.out.println("搜索页"+searchPage);
             client.setPage(searchPage);
             String result = client.Search(searchContent);
             this.isError = client.isError();
